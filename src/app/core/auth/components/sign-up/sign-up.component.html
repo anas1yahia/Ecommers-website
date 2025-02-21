@@ -1,0 +1,144 @@
+<main class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <header class="text-center">
+      <img class="mx-auto h-12 w-auto" src="images/logo.svg" alt="Company Logo">
+      <h1 class="mt-6 text-3xl font-extrabold text-gray-900">Create your account</h1>
+      <p routerLink="/login-user"  class="mt-2 text-sm text-gray-600">
+        Already have an account?
+        <a class="font-medium text-primary hover:text-primary-focus">
+          Sign in here
+        </a>
+      </p>
+    </header>
+
+    <section class="mt-8 bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10" aria-labelledby="signup-heading">
+      <h2 id="signup-heading" class="sr-only">Sign up for an account</h2>
+
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Name Fields -->
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div class="form-group">
+            <label for="firstName" class="block text-sm font-medium text-gray-700">First name</label>
+            <input formControlName="fName" id="firstName" name="firstName" type="text" required
+                   [class]="authForm.get('fName')?.errors && authForm.get('fName')?.touched ? 'input input-bordered input-error w-full mt-1' : 'input input-bordered w-full mt-1'"
+                   autocomplete="given-name">
+            <app-validation-message [controls]="authForm.get('fName')"></app-validation-message>
+          </div>
+
+          <!-- Last Name with validation -->
+          <div class="form-group">
+            <label for="lastName" class="block text-sm font-medium text-gray-700">Last name</label>
+            <input formControlName="lName" id="lastName" name="lastName" type="text" required
+                   [class]="authForm.get('lName')?.errors && authForm.get('lName')?.touched ? 'input input-bordered input-error w-full mt-1' : 'input input-bordered w-full mt-1'"
+                   autocomplete="family-name">
+                   <app-validation-message [controls]="authForm.get('lName')"></app-validation-message>
+          </div>
+        </div>
+
+        <!-- Email with validation -->
+        <div class="form-group">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+          <input formControlName="email" id="email" name="email" type="email" required
+                 [class]="authForm.get('email')?.errors && authForm.get('email')?.touched ? 'input input-bordered input-error w-full mt-1' : 'input input-bordered w-full mt-1'"
+                 autocomplete="email">
+                 <app-validation-message [controls]="authForm.get('email')"></app-validation-message>
+        </div>
+
+        <!-- Password with validation -->
+        <div class="form-group">
+          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+          <div class="mt-1 relative">
+            <input formControlName="password" id="password" name="password"
+                   type="password" required
+                   [class]="authForm.get('password')?.errors && authForm.get('password')?.touched ? 'input input-bordered input-error w-full pr-10' : 'input input-bordered w-full pr-10'"
+                   autocomplete="new-password" minlength="6">
+                   <app-validation-message [controls]="authForm.get('password')"></app-validation-message>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+              <button type="button"  class="text-gray-400 hover:text-gray-500" aria-label="Toggle password visibility">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Confirm Password with validation -->
+        <div class="form-group">
+          <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+          <div class="mt-1 relative">
+            <input formControlName="confirmPassword" id="confirmPassword" name="confirmPassword"
+                   type="password" required
+                   [class]="authForm.get('confirmPassword')?.errors && authForm.get('confirmPassword')?.touched ? 'input input-bordered input-error w-full pr-10' : 'input input-bordered w-full pr-10'"
+                   autocomplete="new-password" minlength="6">
+                   <app-validation-message [controls]="authForm"></app-validation-message>
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+              <button type="button" class="text-gray-400 hover:text-gray-500" aria-label="Toggle password visibility">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Terms with validation -->
+        <div class="form-group">
+          <label class="flex items-start">
+            <input formControlName="acceptTerms" type="checkbox" required
+                   [class]="authForm.get('acceptTerms')?.errors && authForm.get('acceptTerms')?.touched ? 'checkbox checkbox-error mt-1' : 'checkbox checkbox-primary mt-1'">
+            <span class="ml-2 text-sm text-gray-600">
+              I agree to the
+              <a href="#" class="text-primary hover:text-primary-focus">Terms of Service</a>
+              and
+              <a href="#" class="text-primary hover:text-primary-focus">Privacy Policy</a>
+            </span>
+          </label>
+
+          <app-validation-message [controls]="authForm.get('acceptTerms')"></app-validation-message>
+
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"
+                [disabled]="!authForm.valid"
+                class="btn btn-primary w-full"
+                [class.opacity-50]="!authForm.valid">
+          Create account
+        </button>
+      </form>
+
+      <div class="relative my-6">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-2 bg-white text-gray-500">Or continue with</span>
+        </div>
+      </div>
+
+      <!-- Social Sign Up -->
+      <div class="grid grid-cols-2 gap-3">
+        <button type="button" class="btn btn-outline gap-2" aria-label="Sign up with Google">
+          <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Google
+        </button>
+        <button type="button" class="btn btn-outline gap-2" aria-label="Sign up with Twitter">
+          <svg class="h-5 w-5" fill="currentColor" aria-hidden="true" viewBox="0 0 20 20">
+            <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"/>
+          </svg>
+          Twitter
+        </button>
+      </div>
+    </section>
+  </div>
+</main>

@@ -1,0 +1,55 @@
+<div [routerLink]="['/product-details' , product._id]" routerLinkActive="router-link-active"  class="group relative w-72 bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
+  <!-- Wishlist Button -->
+  <button class="absolute top-3 right-3 z-10 btn btn-circle btn-sm btn-ghost bg-white/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+    <i class="ri-heart-line text-lg group-hover:text-red-500 transition-colors"></i>
+  </button>
+
+  <!-- Image Container -->
+  <div class="relative overflow-hidden h-[200px]">
+    <img
+      [src]="product.imageCover"
+      alt="Product Image"
+      class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+    />
+  </div>
+
+  <!-- Content -->
+  <div class="p-4 space-y-2">
+    <!-- Title & Price -->
+    <div class="flex justify-between items-start gap-2">
+      <h3 class="font-semibold text-sm group-hover:text-primary transition-colors line-clamp-1">
+        {{product.title}}
+      </h3>
+      <div class="flex flex-col items-end">
+        <span class="text-sm font-bold text-primary">${{product.price}}</span>
+        <span class="text-xs text-gray-400 line-through">$112</span>
+      </div>
+    </div>
+
+    <!-- Rating -->
+    <div class="flex items-center gap-1">
+      <div class="rating rating-xs">
+        <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400" checked />
+        <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400" checked />
+        <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400" checked />
+        <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400" checked />
+        <input type="radio" name="rating-6" class="mask mask-star-2 bg-orange-400" />
+      </div>
+      <span class="text-xs text-gray-500">({{product.ratingsAverage}})</span>
+    </div>
+
+    <!-- Category & Stock -->
+    <div class="flex justify-between items-center text-xs">
+      <span class="text-gray-500">{{product.category.name}}</span>
+      <div class="flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+        <span class="text-gray-600">In Stock</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add to Cart Button -->
+  <button class="w-full py-2 bg-primary text-white font-semibold rounded-b-2xl transform transition-transform duration-300 opacity-0 group-hover:opacity-100 absolute bottom-0 left-0">
+    Add to Cart
+  </button>
+</div>

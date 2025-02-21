@@ -1,0 +1,183 @@
+
+<main class="h-fit">
+  <section class="bg-gray-50 h-60%">
+    <!-- Top Navigation Bar with Breadcrumbs -->
+    <div class="bg-white border-b">
+      <div class="container mx-auto px-4">
+        <div class="text-sm breadcrumbs py-3">
+          <ul>
+            <li><a class="text-gray-500">Home</a></li>
+            <li><a class="text-gray-500">Electronics</a></li>
+            <li>Wireless Earbuds Pro Max</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left Column - Images (5 cols) -->
+        <div class="lg:col-span-5">
+          <div class="sticky top-4 space-y-4">
+            <!-- Main Image with Zoom -->
+            <div class="aspect-square bg-white rounded-lg border p-2">
+              <img [src]="ProductDetails.imageCover"
+                   alt="Product Image"
+                   class="w-full h-full object-contain hover:scale-105 transition-transform duration-300"/>
+            </div>
+            <!-- Thumbnails -->
+            <div class="grid grid-cols-5 gap-2">
+              <button class="aspect-square bg-white rounded border p-1 border-primary">
+                <img [src]="ProductDetails.imageCover" alt="Thumbnail" class="w-full h-full object-contain"/>
+              </button>
+              <button class="aspect-square bg-white rounded border p-1">
+                <img [src]="ProductDetails.imageCover" alt="Thumbnail" class="w-full h-full object-contain"/>
+              </button>
+              <button class="aspect-square bg-white rounded border p-1">
+                <img [src]="ProductDetails.imageCover" alt="Thumbnail" class="w-full h-full object-contain"/>
+              </button>
+              <button class="aspect-square bg-white rounded border p-1">
+                <img [src]="ProductDetails.imageCover" alt="Thumbnail" class="w-full h-full object-contain"/>
+              </button>
+              <button class="aspect-square bg-white rounded border p-1">
+                <img [src]="ProductDetails.imageCover" alt="Thumbnail" class="w-full h-full object-contain"/>
+              </button>
+            </div>
+            <!-- Share Buttons -->
+            <div class="flex justify-center gap-4 text-gray-500">
+              <button class="btn btn-ghost btn-sm gap-2">
+                <i class="ri-share-line"></i> Share
+              </button>
+              <button class="btn btn-ghost btn-sm gap-2">
+                <i class="ri-heart-line"></i> Save
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - Product Info (7 cols) -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Title & Basic Info -->
+          <div class="bg-white rounded-lg p-6 space-y-4">
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="badge badge-primary">{{ProductDetails.category.name}}</span>
+                <span class="badge badge-ghost">Hot Sale</span>
+              </div>
+              <h1 class="text-xl font-medium">{{ProductDetails.title}}</h1>
+            </div>
+
+            <!-- Ratings & Orders -->
+            <div class="flex items-center gap-6 text-sm border-b pb-4">
+              <div class="flex items-center gap-2">
+                <span class="text-2xl font-bold text-orange-400">{{ProductDetails.ratingsAverage}}</span>
+                <div class="rating rating-sm">
+                  <input type="radio" class="mask mask-star-2 bg-orange-400" checked disabled/>
+                  <input type="radio" class="mask mask-star-2 bg-orange-400" checked disabled/>
+                  <input type="radio" class="mask mask-star-2 bg-orange-400" checked disabled/>
+                  <input type="radio" class="mask mask-star-2 bg-orange-400" checked disabled/>
+                  <input type="radio" class="mask mask-star-2 bg-orange-400" checked disabled/>
+                </div>
+              </div>
+              <span class="text-gray-500">2,945 Reviews</span>
+              <span class="text-gray-500">5,234 Sold</span>
+            </div>
+
+            <!-- Price Section -->
+            <div class="space-y-4 pt-2">
+              <div class="flex items-baseline gap-3">
+                <span class="text-3xl font-bold text-primary">{{ProductDetails.price}}</span>
+                <span class="text-lg text-gray-400 line-through">$99.99</span>
+                <span class="badge badge-error">-50% OFF</span>
+              </div>
+              <div class="text-sm text-gray-500">
+                <i class="ri-truck-line"></i>
+                Free Shipping to United States via AliExpress Standard Shipping
+              </div>
+            </div>
+          </div>
+
+          <!-- Options Section -->
+          <div class="bg-white rounded-lg p-6 space-y-6">
+            <!-- Color Selection -->
+            <div class="space-y-3">
+              <span class="text-sm text-gray-500">Color:</span>
+              <div class="flex flex-wrap gap-2">
+                <label class="cursor-pointer">
+                  <input type="radio" name="color" class="peer hidden" checked/>
+                  <div class="px-4 py-2 border rounded-full peer-checked:border-primary peer-checked:bg-primary/5">
+                    Black
+                  </div>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="color" class="peer hidden"/>
+                  <div class="px-4 py-2 border rounded-full peer-checked:border-primary peer-checked:bg-primary/5">
+                    White
+                  </div>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="color" class="peer hidden"/>
+                  <div class="px-4 py-2 border rounded-full peer-checked:border-primary peer-checked:bg-primary/5">
+                    Blue
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Quantity -->
+            <div class="space-y-3">
+              <span class="text-sm text-gray-500">Quantity:</span>
+              <div class="flex items-center gap-4">
+                <div class="join border rounded-lg">
+                  <button class="btn join-item">-</button>
+                  <input type="number" value="1" class="join-item w-20 text-center [appearance:textfield]"/>
+                  <button class="btn join-item">+</button>
+                </div>
+                <span class="text-sm text-gray-500">1,234 items available</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-4 pt-4">
+              <button class="btn border border-black solid border-gray-700bg-white text-black  flex-1">
+                <i class="ri-shopping-cart-line"></i>
+                Add to Cart
+              </button>
+              <button class="btn bg-green-700 text-white flex-1">
+                Buy Now
+              </button>
+            </div>
+          </div>
+
+          <!-- Seller Info -->
+          <div class="bg-white rounded-lg p-6">
+            <div class="flex items-center gap-4">
+              <div class="avatar">
+                <div class="w-16 rounded">
+                  <img src="https://picsum.photos/100/100" alt="Store Avatar"/>
+                </div>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-medium">Tech Gadgets Official Store</h3>
+                <div class="flex items-center gap-4 text-sm text-gray-500">
+                  <span>97.6% Positive Feedback</span>
+                  <span>⭐ Top Seller</span>
+                </div>
+              </div>
+              <button class="btn btn-outline btn-primary btn-sm">
+                Visit Store
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<footer>
+ <app-fotter></app-fotter>
+</footer>

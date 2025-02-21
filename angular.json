@@ -27,6 +27,7 @@
               }
             ],
             "styles": [
+              "node_modules/remixicon/fonts/remixicon.css",
               "src/styles.css"
             ],
             "scripts": [],
@@ -38,6 +39,10 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [{
+                "replace": "./src/environments/environment.ts",
+                "with": "./src/environments/environment.prod.ts"
+              }],
               "budgets": [
                 {
                   "type": "initial",
@@ -97,5 +102,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "55e6c66d-b8ef-4814-96f2-8431440f0d93"
   }
 }

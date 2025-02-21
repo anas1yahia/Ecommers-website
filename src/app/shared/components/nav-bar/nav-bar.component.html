@@ -1,0 +1,152 @@
+<div class="navbar  bg-base-100 w-full flex  justify-center">
+  <div class="navbar-start w-fit pl-[96px] pr-[96px] " >
+    <div class="dropdown">
+      <button tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h8m-8 6h16" />
+        </svg>
+      </button>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        <li><a>Item 1</a></li>
+        <li>
+          <a>Menu</a>
+          <ul class="p-2">
+            <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+            <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
+            <li><a routerLink="/category" routerLinkActive="active">Categories</a></li>
+            <li><a routerLink="/brand" routerLinkActive="active">Brands</a></li>
+          </ul>
+        </li>
+        <li><a>Item 3</a></li>
+      </ul>
+    </div>
+    <a class="btn btn-ghost text-xl">
+      <img src="images/logo.svg" alt="logo" />
+    </a>
+
+     <!-- search bar section -->
+   <div id="search-bar" class="flex-1 max-w-2xl mx-4 border-spacing-1 border border-gray-300 p-1 rounded-full">
+    <div class="relative w-full rounded-full">
+      <div class="join w-full ">
+        <!-- Category Dropdown -->
+        <div class="dropdown">
+          <div tabindex="0" role="button" class="btn btn-ghost join-item border-none rounded-full hover:bg-base-200">
+            All Categories
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+          <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+            <li><a>Electronics</a></li>
+            <li><a>Fashion</a></li>
+            <li><a>Home & Garden</a></li>
+            <li><a>Sports</a></li>
+          </ul>
+        </div>
+
+        <!-- Search Input -->
+        <input type="text"
+               placeholder="Search for anything..."
+               class="input border-none rounded-full  flex-1 focus:outline-none" />
+
+        <!-- Search Button -->
+        <button class="btn px-8 bg-black hover:bg-black-focus text-white border-none rounded-full">
+          <span><i class="ri-search-line"></i></span>
+        </button>
+      </div>
+
+
+    </div>
+  </div>
+  </div>
+
+  <div class="navbar-center hidden lg:flex">
+   @if (layout == 'user') {
+    <div class="flex h-fit w-fit flex-row">
+        <ul class="menu menu-horizontal px-1 text-[16px] gap-2">
+              <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+              <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
+              <li><a routerLink="/category" routerLinkActive="active">Categories</a></li>
+              <li><a routerLink="/brand" routerLinkActive="active">Brands</a></li>
+            </ul>
+
+            <div class="language-actions">
+              <button class="btn bg-transparent border-none">
+                <span><i class="ri-translate text-green-600 text-2xl"></i></span>
+                <div class="flex flex-col gap-1 items-start">
+                  <span>ENGLISH</span>
+                  <span>/ DZD</span>
+                </div>
+              </button>
+            </div>
+
+
+
+
+
+            <div class="card-actions">
+              <a routerLink="/cart" routerLinkActive="active" class="btn bg-transparent border-none">
+                <span><i class="ri-shopping-cart-line text-2xl"></i></span>
+                <div class="flex flex-col-reverse gap-1 items-center">
+                  <a >Cart</a>
+                  <span class="badge-neutral px-3 py-0.5 rounded-full">0</span>
+                </div>
+              </a>
+            </div>
+    </div>
+
+
+      <div routerLink="/login-user"  class="dropdown dropdown-end">
+        <div class="Auth-actions">
+          <button class="btn bg-transparent border-none">
+            <span><i class="ri-user-6-line text-gray-500 text-3xl"></i></span>
+            <div class="flex flex-col gap-2 items-start">
+              <span class="font-normal">welcome</span>
+              <div class="flex flex-row gap-1 items-center font-normaltext-[16px]">
+                <span>Sign up</span>
+                <span>/</span>
+                <span>login</span>
+
+
+
+              </div>
+            </div>
+          </button>
+
+        </div>
+      </div>
+
+
+   }@else {
+    <div class="auth-actions flex items-center gap-4">
+      <!-- Sign In Button -->
+      <button class="btn btn-ghost hover:bg-base-200 rounded-full">
+        <span class="flex items-center gap-2">
+          <i class="ri-login-circle-line text-2xl text-primary"></i>
+          <span class="font-medium">Sign In</span>
+        </span>
+      </button>
+
+      <!-- Sign Up Button -->
+      <button class="btn btn-primary rounded-full">
+        <span class="flex items-center gap-2">
+          <i class="ri-user-add-line text-xl"></i>
+          <span class="font-medium">Sign Up</span>
+        </span>
+      </button>
+    </div>
+   }
+  </div>
+
+</div>
