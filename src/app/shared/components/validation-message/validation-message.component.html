@@ -1,27 +1,26 @@
-@if (controls?.errors && controls?.touched&&! controls?.get('confirmPassword')?.touched) {
-  <div class="mt-2 flex items-center space-x-2" role="alert">
-    <svg class="h-5 w-5 text-error" viewBox="0 0 20 20" fill="currentColor">
-      <path fill-rule="evenodd"
-            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-            clip-rule="evenodd" />
-    </svg>
-
-    @if (controls?.errors?.['required']) {
-      <span class="text-sm text-error">This field is required</span>
-    } @else if (controls?.errors?.['minlength']) {
-      <span class="text-sm text-error">Must be at least {{ controls?.errors?.['minlength'].requiredLength }} characters</span>
-    } @else if (controls?.errors?.['email']) {
-      <span class="text-sm text-error">Please enter a valid email address</span>
-    } @else if (controls?.errors?.['pattern']) {
-
-    } @else if (controls?.errors?.['requiredTrue']) {
-      <span class="text-sm text-error">You must accept the terms and conditions</span>
+@if (controls?.errors&&controls?.touched) {
+  <div class="text-sm text-error">
+    @if (controls?.getError('required')) {
+      <li>This field is required</li>
     }
+    @if (controls?.getError('minlength')) {
+      <li>Minimum length is {{controls?.getError('minlength').requiredLength}}</li>
+    }
+    @if (controls?.getError('maxlength')) {
+      <li>Maximum length is {{controls?.getError('maxlength').requiredLength}}</li>
+    }
+    @if (controls?.getError('email')) {
+      <li>Invalid email</li>
+    }
+    @if (controls?.getError('pattern')) {
+      <li>Invalid pattern</li>
+    }
+
 
   </div>
 }
 
 
-@if (controls?.getError('passwordMismatch')&& controls?.get('confirmPassword')?.touched) {
+@if (controls?.getError('passwordMismatch')&& controls?.get('rePassword')?.touched) {
   <span class="text-sm text-error">Password does not match</span>
 }

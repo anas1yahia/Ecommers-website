@@ -3,11 +3,15 @@
     <header class="text-center">
       <img class="mx-auto h-12 w-auto" src="images/logo.svg" alt="Company Logo">
       <h1 class="mt-6 text-3xl font-extrabold text-gray-900">Create your account</h1>
-      <p routerLink="/login-user"  class="mt-2 text-sm text-gray-600">
+      <p  class="mt-2 text-sm text-gray-600">
         Already have an account?
-        <a class="font-medium text-primary hover:text-primary-focus">
-          Sign in here
+        <a routerLink="/login-user" type="button" class="font-medium text-primary hover:text-primary-focus cursor-pointer">
+          <span>Sign in here</span>
         </a>
+
+
+
+
       </p>
     </header>
 
@@ -16,81 +20,89 @@
 
       <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="space-y-6">
         <!-- Name Fields -->
-        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div class="form-group">
+        <div class="w-full">
+          <div class="form-group ">
             <label for="firstName" class="block text-sm font-medium text-gray-700">First name</label>
-            <input formControlName="fName" id="firstName" name="firstName" type="text" required
-                   [class]="authForm.get('fName')?.errors && authForm.get('fName')?.touched ? 'input input-bordered input-error w-full mt-1' : 'input input-bordered w-full mt-1'"
-                   autocomplete="given-name">
-            <app-validation-message [controls]="authForm.get('fName')"></app-validation-message>
+            <input formControlName="name"
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  required
+                  class="input input-bordered w-full mt-1"
+                  autocomplete="given-name">
+            <app-validation-message [controls]="authForm.get('name')"></app-validation-message>
           </div>
 
-          <!-- Last Name with validation -->
-          <div class="form-group">
-            <label for="lastName" class="block text-sm font-medium text-gray-700">Last name</label>
-            <input formControlName="lName" id="lastName" name="lastName" type="text" required
-                   [class]="authForm.get('lName')?.errors && authForm.get('lName')?.touched ? 'input input-bordered input-error w-full mt-1' : 'input input-bordered w-full mt-1'"
-                   autocomplete="family-name">
-                   <app-validation-message [controls]="authForm.get('lName')"></app-validation-message>
-          </div>
+
         </div>
 
-        <!-- Email with validation -->
+        <!-- Email -->
         <div class="form-group">
           <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
-          <input formControlName="email" id="email" name="email" type="email" required
-                 [class]="authForm.get('email')?.errors && authForm.get('email')?.touched ? 'input input-bordered input-error w-full mt-1' : 'input input-bordered w-full mt-1'"
-                 autocomplete="email">
-                 <app-validation-message [controls]="authForm.get('email')"></app-validation-message>
+          <input formControlName="email"
+                id="email"
+                name="email"
+                type="email"
+                required
+                class="input input-bordered w-full mt-1"
+                autocomplete="email">
+          <app-validation-message [controls]="authForm.get('email')"></app-validation-message>
         </div>
 
-        <!-- Password with validation -->
+        <!-- Password -->
         <div class="form-group">
           <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
           <div class="mt-1 relative">
-            <input formControlName="password" id="password" name="password"
-                   type="password" required
-                   [class]="authForm.get('password')?.errors && authForm.get('password')?.touched ? 'input input-bordered input-error w-full pr-10' : 'input input-bordered w-full pr-10'"
-                   autocomplete="new-password" minlength="6">
-                   <app-validation-message [controls]="authForm.get('password')"></app-validation-message>
-            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-              <button type="button"  class="text-gray-400 hover:text-gray-500" aria-label="Toggle password visibility">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-              </button>
-            </div>
+            <input formControlName="password"
+                  id="password"
+                  [type]="showPassword ? 'text' : 'password'"
+                  required
+                  class="input input-bordered w-full pr-10"
+                  autocomplete="new-password"
+                  minlength="6"
+                  placeholder="••••••••">
+            <button type="button"
+                    (click)="togglePassword()"
+                    class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer focus:outline-none"
+                    [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+              <i [class]="showPassword ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+            </button>
           </div>
-
+          <app-validation-message [controls]="authForm.get('password')"></app-validation-message>
+          <p class="mt-2 text-xs text-gray-500">
+            Password must contain at least 6 characters, including uppercase, lowercase letters and numbers
+          </p>
         </div>
 
-        <!-- Confirm Password with validation -->
+        <!-- Confirm Password -->
         <div class="form-group">
-          <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+          <label for="rePassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
           <div class="mt-1 relative">
-            <input formControlName="confirmPassword" id="confirmPassword" name="confirmPassword"
-                   type="password" required
-                   [class]="authForm.get('confirmPassword')?.errors && authForm.get('confirmPassword')?.touched ? 'input input-bordered input-error w-full pr-10' : 'input input-bordered w-full pr-10'"
-                   autocomplete="new-password" minlength="6">
-                   <app-validation-message [controls]="authForm"></app-validation-message>
-            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-              <button type="button" class="text-gray-400 hover:text-gray-500" aria-label="Toggle password visibility">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-              </button>
-            </div>
+            <input formControlName="rePassword"
+                  id="rePassword"
+                  [type]="showrePassword ? 'text' : 'password'"
+                  required
+                  class="input input-bordered w-full pr-10"
+                  autocomplete="new-password"
+                  minlength="6"
+                  placeholder="••••••••">
+            <button type="button"
+                    (click)="togglerePassword()"
+                    class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer focus:outline-none"
+                    [attr.aria-label]="showrePassword ? 'Hide password' : 'Show password'">
+              <i [class]="showrePassword ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+            </button>
           </div>
-
+          <app-validation-message [controls]="authForm.get('rePassword')"></app-validation-message>
         </div>
 
-        <!-- Terms with validation -->
+        <!-- Terms -->
         <div class="form-group">
           <label class="flex items-start">
-            <input formControlName="acceptTerms" type="checkbox" required
-                   [class]="authForm.get('acceptTerms')?.errors && authForm.get('acceptTerms')?.touched ? 'checkbox checkbox-error mt-1' : 'checkbox checkbox-primary mt-1'">
+            <input formControlName="acceptTerms"
+                  type="checkbox"
+                  required
+                  class="checkbox checkbox-primary mt-1">
             <span class="ml-2 text-sm text-gray-600">
               I agree to the
               <a href="#" class="text-primary hover:text-primary-focus">Terms of Service</a>
@@ -98,16 +110,17 @@
               <a href="#" class="text-primary hover:text-primary-focus">Privacy Policy</a>
             </span>
           </label>
-
           <app-validation-message [controls]="authForm.get('acceptTerms')"></app-validation-message>
-
         </div>
+
+
 
         <!-- Submit Button -->
         <button type="submit"
-                [disabled]="!authForm.valid"
+
                 class="btn btn-primary w-full"
-                [class.opacity-50]="!authForm.valid">
+                [disabled]="!authForm.valid"
+                >
           Create account
         </button>
       </form>
