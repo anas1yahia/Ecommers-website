@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ValidationMessageComponent } from "../../../../shared/components/validation-message/validation-message.component";
@@ -10,7 +11,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './sign-up.component.css'
 })
 export class SignUpComponent {
-  private readonly authservice = inject(AuthService)
+  errorMessage = '';
+  isSubmitting = false;
+  private readonly authservice = inject(AuthService);
+  private readonly Router = inject(Router);
 
   authForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -26,22 +30,38 @@ export class SignUpComponent {
   }
 
   onSubmit() {
+    this.errorMessage = ''; // reset error message
     if (this.authForm.valid) {
       this.authservice.register(this.authForm.value).subscribe({
         next: (res) => {
           console.log(res);
+          this.isSubmitting = false;
+          this.Router.navigate(['/login-user']);
         },
         error: (err) => {
+          this.isSubmitting = false;
+
           console.log(err);
+          if (err.error?.message?.includes('email already exists') ||
+              err.status === 409 ||
+              err.error?.code === 'EMAIL_EXISTS') {
+            this.errorMessage = 'An account with this email already exists.';
+          } else {
+            // Generic error message for other errors
+            this.errorMessage = err.error?.message || 'Registration failed. Please try again.';
+          }
         }
       })
+    }else {
+      // Mark all fields as touched to show validation errors
+      Object.keys(this.authForm.controls).forEach(key => {
+        const control = this.authForm.get(key);
+        control?.markAsTouched();
+      });
     }
-
-
-
-
-
   }
+
+
 
 
   showPassword = false;
