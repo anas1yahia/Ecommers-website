@@ -8,17 +8,24 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const platformId = inject(PLATFORM_ID);
 
+  console.log('Auth guard running, checking auth status');
+
   // Skip authentication check during SSR
   if (!isPlatformBrowser(platformId)) {
+    console.log('SSR detected, bypassing auth check');
     return true;
   }
 
   // Now check authentication in browser
-  if (authService.isAuthnticated()) {
+  const isAuth = authService.isAuthnticated();
+  console.log('User authenticated?', isAuth);
+
+  if (isAuth) {
     return true;
   }
 
   // Redirect to login if not authenticated
+  console.log('Not authenticated, redirecting to login');
   router.navigate(['/login-user']);
   return false;
 };

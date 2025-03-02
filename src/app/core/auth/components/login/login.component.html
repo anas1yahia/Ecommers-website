@@ -40,41 +40,52 @@
         </div>
       </div>
 
-      <form class="space-y-6">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Email field -->
         <div class="form-group">
           <label for="email" class="block text-sm font-medium text-gray-700">
             Email address
           </label>
           <div class="mt-1">
-            <input
+            <input formControlName="email"
                    id="email"
-                   name="email"
                    type="email"
                    autocomplete="email"
-                   required class="input input-bordered w-full">
-
-
+                   required
+                   class="input input-bordered w-full"
+                   [class.input-error]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            <app-validation-message [controls]="loginForm.get('email')"></app-validation-message>
           </div>
         </div>
 
+        <!-- Password field -->
         <div class="form-group">
           <label for="password" class="block text-sm font-medium text-gray-700">
             Password
           </label>
-          <div class="mt-1">
-            <input id="password"
-                   name="password"
-                   type="password"
+          <div class="mt-1 relative">
+            <input formControlName="password"
+                   id="password"
+                   [type]="showPassword ? 'text' : 'password'"
                    autocomplete="current-password"
                    required
-                   class="input input-bordered w-full">
+                   class="input input-bordered w-full pr-10"
+                   [class.input-error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            <button type="button"
+                    (click)="togglePassword()"
+                    class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer focus:outline-none"
+                    [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+              <i [class]="showPassword ? 'ri-eye-off-line' : 'ri-eye-line'"></i>
+            </button>
+            <app-validation-message [controls]="loginForm.get('password')"></app-validation-message>
           </div>
         </div>
 
+        <!-- Remember me checkbox -->
         <div class="flex items-center justify-between">
           <div class="flex items-center">
-            <input id="remember-me"
-                   name="remember-me"
+            <input formControlName="rememberMe"
+                   id="remember-me"
                    type="checkbox"
                    class="checkbox checkbox-primary"
                    aria-label="Remember me">
@@ -88,8 +99,24 @@
           </a>
         </div>
 
-        <button type="submit" class="btn btn-primary w-full">
-          Sign in
+        <!-- Error message -->
+        @if (errorMessage) {
+          <div class="alert alert-error">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{{ errorMessage }}</span>
+          </div>
+        }
+
+        <!-- Submit button -->
+        <button type="submit"
+                class="btn btn-primary w-full"
+                [disabled]="loginForm.invalid || isSubmitting">
+          @if (isSubmitting) {
+            <span class="loading loading-spinner loading-sm mr-2"></span>
+          }
+          {{ isSubmitting ? 'Signing in...' : 'Sign in' }}
         </button>
       </form>
     </section>

@@ -29,13 +29,13 @@ export const routes: Routes = [
   {
     path: '',
     component: UserComponent,
-    canActivate: [authGuard],
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'category', component: CategoryListComponent },
       { path: 'products', component: ListProductComponent },
       { path: 'product-details/:id', component: DetailsProductComponent },
-      { path: 'cart', component: CartComponent }
+      { path: 'cart', component: CartComponent,
+    canActivate: [authGuard] }
     ]
   },
 

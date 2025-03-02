@@ -107,47 +107,76 @@
     </div>
 
 
-      <!-- User Profile Dropdown -->
+      <!-- User profile dropdown with auth state -->
 <div class="dropdown dropdown-end">
   <!-- Dropdown trigger -->
   <div tabindex="0" role="button" class="btn bg-transparent border-none">
     <span><i class="ri-user-6-line text-gray-500 text-3xl"></i></span>
     <div class="flex flex-col gap-2 items-start">
-      <span class="font-normal">Welcome</span>
+      <span class="font-normal">
+        @if (isAuthenticated) {
+          Hello, {{userName}}
+        } @else {
+          Welcome
+        }
+      </span>
       <div class="flex flex-row gap-1 items-center font-normaltext-[16px]">
-        <span>My Account</span>
+        @if (isAuthenticated) {
+          <span>My Account</span>
+        } @else {
+          <span>Sign up</span>
+          <span>/</span>
+          <span>Login</span>
+        }
       </div>
     </div>
   </div>
 
   <!-- Dropdown content -->
   <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-64 mt-4">
-    <!-- Profile section -->
-    <li class="menu-title">Account</li>
-    <li><a><i class="ri-user-settings-line mr-2"></i>My Preferences</a></li>
+    @if (isAuthenticated) {
+      <!-- Authenticated user options -->
+      <li class="menu-title">Account</li>
+      <li><a routerLink="/profile"><i class="ri-user-settings-line mr-2"></i>My Preferences</a></li>
 
-    <!-- Dark mode toggle -->
-    <li>
-      <div class="flex justify-between items-center px-4 py-2">
-        <span><i class="ri-moon-line mr-2"></i>Dark Mode</span>
-        <label class="relative inline-flex items-center cursor-pointer">
-          <input type="checkbox" class="sr-only peer">
-          <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-        </label>
-      </div>
-    </li>
+      <!-- Dark mode toggle -->
+      <li>
+        <div class="flex justify-between items-center px-4 py-2">
+          <span><i class="ri-moon-line mr-2"></i>Dark Mode</span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" [(ngModel)]="darkMode" class="sr-only peer">
+            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+          </label>
+        </div>
+      </li>
 
-    <!-- Activities section -->
-    <li class="menu-title mt-2">Activities</li>
-    <li><a><i class="ri-history-line mr-2"></i>Browsing History</a></li>
-    <li><a><i class="ri-heart-3-line mr-2"></i>Preferred Items</a></li>
+      <!-- Activities section -->
+      <li class="menu-title mt-2">Activities</li>
+      <li><a routerLink="/history"><i class="ri-history-line mr-2"></i>Browsing History</a></li>
+      <li><a routerLink="/wishlist"><i class="ri-heart-3-line mr-2"></i>Preferred Items</a></li>
 
-    <!-- Settings section -->
-    <li class="divider"></li>
-    <li><a class="text-error"><i class="ri-logout-box-r-line mr-2"></i>Log out</a></li>
+      <!-- Logout section -->
+      <li class="divider"></li>
+      <li><a (click)="logout()" class="text-error"><i class="ri-logout-box-r-line mr-2"></i>Log out</a></li>
+    } @else {
+      <!-- Unauthenticated user options -->
+      <li><a routerLink="/login-user" class="btn btn-primary text-white w-full mb-2">Login</a></li>
+      <li><a routerLink="/signup-user" class="btn btn-outline w-full">Create Account</a></li>
+
+      <!-- Dark mode toggle for guest -->
+      <li class="divider"></li>
+      <li>
+        <div class="flex justify-between items-center px-4 py-2">
+          <span><i class="ri-moon-line mr-2"></i>Dark Mode</span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" [(ngModel)]="darkMode" class="sr-only peer">
+            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+          </label>
+        </div>
+      </li>
+    }
   </ul>
 </div>
-
 
    }@else {
 
