@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, OnInit, OnDestroy, inject, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/auth/services/auth.service';
@@ -8,23 +8,58 @@ import { AuthService } from '../../../core/auth/services/auth.service';
   selector: 'app-nav-bar',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
-  providers: [AuthService], // Add this to ensure the service is provided
+  providers: [AuthService],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, OnDestroy {
   @Input() layout: string = 'user';
 
   isAuthenticated = false;
   userName: string = '';
   darkMode = false;
 
+  cartItemCount: number = 2;
+  showMobileMenu: boolean = false;
+  showMobileSearch: boolean = false;
+  userEmail: string = 'user@example.com';
+
   private authService = inject(AuthService);
+  private isBrowser: boolean;
+$index: any;
+
+  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
+
+  closeMobileMenu() {
+    this.showMobileMenu = false;
+  }
+
+  toggleMobileMenu() {
+    this.showMobileMenu = !this.showMobileMenu;
+  }
+
+  toggleMobileSearch() {
+    this.showMobileSearch = !this.showMobileSearch;
+  }
+
+  handleScroll = () => {
+    if (!this.isBrowser) return;
+
+    const nav = document.getElementById('main-nav');
+    if (nav) {
+      if (window.scrollY > 50) {
+        nav.classList.add('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-scrolled');
+      }
+    }
+  }
 
   ngOnInit(): void {
-    // Add null safety checks
-    if (typeof window !== 'undefined') {
-      // Safe check for authentication status
+    // Check authentication only in browser environment
+    if (this.isBrowser) {
       try {
         this.isAuthenticated = this.authService?.isAuthnticated() || false;
         const user = this.authService?.getUserData();
@@ -35,15 +70,24 @@ export class NavBarComponent implements OnInit {
           this.isAuthenticated = !!user;
           this.userName = user?.name || '';
         });
+
+        // Add event listener only in browser
+        window.addEventListener('scroll', this.handleScroll);
       } catch (error) {
         console.error('Auth service error:', error);
       }
     }
   }
 
+  ngOnDestroy() {
+    // Remove event listener only in browser
+    if (this.isBrowser) {
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+  }
+
   checkAuthStatus(): void {
     try {
-      // Add null safety checks
       this.isAuthenticated = this.authService?.isAuthnticated() || false;
       const user = this.authService?.getUserData();
       this.userName = user?.name || '';
@@ -61,9 +105,10 @@ export class NavBarComponent implements OnInit {
   }
 
   toggleDarkMode(): void {
-    this.darkMode = !this.darkMode;
-    if (typeof document !== 'undefined') {
+    if (this.isBrowser) {
       document.documentElement.classList.toggle('dark', this.darkMode);
+
+      localStorage.setItem('darkMode', this.darkMode ? 'true' : 'false');
     }
   }
 }

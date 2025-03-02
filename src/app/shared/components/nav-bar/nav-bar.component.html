@@ -1,239 +1,386 @@
-<div class="navbar  bg-base-100 w-full flex  justify-center">
-  <div class="navbar-start w-fit pl-[96px] pr-[96px] " >
-    <div class="dropdown">
-      <button tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h8m-8 6h16" />
-        </svg>
-      </button>
-      <ul
-        tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li><a>Item 1</a></li>
-        <li>
-          <a>Menu</a>
-          <ul class="p-2">
-            <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-            <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
-            <li><a routerLink="/category" routerLinkActive="active">Categories</a></li>
-            <li><a routerLink="/brand" routerLinkActive="active">Brands</a></li>
-          </ul>
-        </li>
-        <li><a>Item 3</a></li>
-      </ul>
-    </div>
-    <a class="btn btn-ghost text-xl">
-      <img src="images/logo.svg" alt="logo" />
-    </a>
-
-     <!-- search bar section -->
-   <div id="search-bar" class="flex-1 max-w-2xl mx-4 border-spacing-1 border border-gray-300 p-1 rounded-full">
-    <div class="relative w-full rounded-full">
-      <div class="join w-full ">
-        <!-- Category Dropdown -->
-        <div class="dropdown">
-          <div tabindex="0" role="button" class="btn btn-ghost join-item border-none rounded-full hover:bg-base-200">
-            All Categories
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
-          <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a>Electronics</a></li>
-            <li><a>Fashion</a></li>
-            <li><a>Home & Garden</a></li>
-            <li><a>Sports</a></li>
-          </ul>
-        </div>
-
-        <!-- Search Input -->
-        <input type="text"
-               placeholder="Search for anything..."
-               class="input border-none rounded-full  flex-1 focus:outline-none" />
-
-        <!-- Search Button -->
-        <button class="btn px-8 bg-black hover:bg-black-focus text-white border-none rounded-full">
-          <span><i class="ri-search-line"></i></span>
-        </button>
-      </div>
-
-
-    </div>
+<!-- Announcement banner -->
+<div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-2 text-sm">
+  <div class="container mx-auto px-4">
+    Free shipping on orders over $50 | Use code: <span class="font-bold">SHIP50</span>
+    <button class="ml-2 hover:underline focus:outline-none">
+      Learn more <i class="ri-arrow-right-s-line align-middle"></i>
+    </button>
   </div>
-  </div>
-
-  <div class="navbar-center hidden lg:flex">
-   @if (layout == 'user') {
-    <div class="flex   gap-4  flex-row">
-        <ul class="menu menu-horizontal px-1 text-[16px] gap-2">
-              <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-              <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
-              <li><a routerLink="/category" routerLinkActive="active">Categories</a></li>
-              <li><a routerLink="/brand" routerLinkActive="active">Brands</a></li>
-            </ul>
-
-            <div class="language-actions">
-              <button class="btn bg-transparent border-none">
-                <span><i class="ri-translate text-green-600 text-2xl"></i></span>
-                <div class="flex flex-col gap-1 items-start">
-                  <span>ENGLISH</span>
-                  <span>/ DZD</span>
-                </div>
-              </button>
-            </div>
-
-
-
-
-
-            <div class="card-actions">
-              <a routerLink="/cart" routerLinkActive="active" class="btn bg-transparent border-none">
-                <span><i class="ri-shopping-cart-line text-2xl"></i></span>
-                <div class="flex flex-col-reverse gap-1 items-center">
-                  <a >Cart</a>
-                  <span class="badge-neutral px-3 py-0.5 rounded-full">0</span>
-                </div>
-              </a>
-            </div>
-    </div>
-
-
-      <!-- User profile dropdown with auth state -->
-<div class="dropdown dropdown-end">
-  <!-- Dropdown trigger -->
-  <div tabindex="0" role="button" class="btn bg-transparent border-none">
-    <span><i class="ri-user-6-line text-gray-500 text-3xl"></i></span>
-    <div class="flex flex-col gap-2 items-start">
-      <span class="font-normal">
-        @if (isAuthenticated) {
-          Hello, {{userName}}
-        } @else {
-          Welcome
-        }
-      </span>
-      <div class="flex flex-row gap-1 items-center font-normaltext-[16px]">
-        @if (isAuthenticated) {
-          <span>My Account</span>
-        } @else {
-          <span>Sign up</span>
-          <span>/</span>
-          <span>Login</span>
-        }
-      </div>
-    </div>
-  </div>
-
-  <!-- Dropdown content -->
-  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-64 mt-4">
-    @if (isAuthenticated) {
-      <!-- Authenticated user options -->
-      <li class="menu-title">Account</li>
-      <li><a routerLink="/profile"><i class="ri-user-settings-line mr-2"></i>My Preferences</a></li>
-
-      <!-- Dark mode toggle -->
-      <li>
-        <div class="flex justify-between items-center px-4 py-2">
-          <span><i class="ri-moon-line mr-2"></i>Dark Mode</span>
-          <label class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" [(ngModel)]="darkMode" class="sr-only peer">
-            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-          </label>
-        </div>
-      </li>
-
-      <!-- Activities section -->
-      <li class="menu-title mt-2">Activities</li>
-      <li><a routerLink="/history"><i class="ri-history-line mr-2"></i>Browsing History</a></li>
-      <li><a routerLink="/wishlist"><i class="ri-heart-3-line mr-2"></i>Preferred Items</a></li>
-
-      <!-- Logout section -->
-      <li class="divider"></li>
-      <li><a (click)="logout()" class="text-error"><i class="ri-logout-box-r-line mr-2"></i>Log out</a></li>
-    } @else {
-      <!-- Unauthenticated user options -->
-      <li><a routerLink="/login-user" class="btn btn-primary text-white w-full mb-2">Login</a></li>
-      <li><a routerLink="/signup-user" class="btn btn-outline w-full">Create Account</a></li>
-
-      <!-- Dark mode toggle for guest -->
-      <li class="divider"></li>
-      <li>
-        <div class="flex justify-between items-center px-4 py-2">
-          <span><i class="ri-moon-line mr-2"></i>Dark Mode</span>
-          <label class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" [(ngModel)]="darkMode" class="sr-only peer">
-            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-          </label>
-        </div>
-      </li>
-    }
-  </ul>
 </div>
 
-   }@else {
+<!-- Main Navigation -->
+<nav class="bg-white border-b border-gray-200 sticky top-0 z-50 transition-all duration-300" id="main-nav">
+  <!-- Top Bar - Mobile Only -->
+  <div class="lg:hidden border-b border-gray-100">
+    <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+      <button class="btn btn-sm btn-ghost">
+        <i class="ri-map-pin-line text-gray-500"></i>
+        <span class="text-xs">Deliver to <span class="font-medium">New York</span></span>
+      </button>
 
-    <div class="flex h-fit  gap-4  flex-row">
-      <ul class="menu menu-horizontal px-1 text-[16px] gap-2">
-            <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
-            <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
-            <li><a routerLink="/category" routerLinkActive="active">Categories</a></li>
-            <li><a routerLink="/brand" routerLinkActive="active">Brands</a></li>
-          </ul>
+      <div class="flex items-center gap-3">
+        <button class="btn btn-sm btn-ghost">
+          <i class="ri-translate text-gray-500"></i>
+          <span class="text-xs">EN</span>
+        </button>
 
-          <div class="language-actions">
-            <button class="btn bg-transparent border-none">
-              <span><i class="ri-translate text-green-600 text-2xl"></i></span>
-              <div class="flex flex-col gap-1 items-start">
-                <span>ENGLISH</span>
-                <span>/ DZD</span>
-              </div>
+        <button class="btn btn-sm btn-ghost" id="theme-toggle-mobile">
+          <i class="ri-sun-line text-gray-500"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Nav Content -->
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between h-16">
+      <!-- Left Section: Logo & Hamburger -->
+      <div class="flex items-center">
+        <!-- Mobile menu button -->
+        <button class="btn btn-sm btn-ghost lg:hidden mr-2" aria-label="Open menu">
+          <i class="ri-menu-line text-xl"></i>
+        </button>
+
+        <!-- Logo -->
+        <a routerLink="/" class="flex items-center">
+          <img src="images/logo.svg" alt="Shop Logo" class="h-8">
+        </a>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden lg:flex ml-8 space-x-1">
+          <a routerLink="/home" routerLinkActive="active-nav-link"
+             class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">
+            Home
+          </a>
+          <a routerLink="/products" routerLinkActive="active-nav-link"
+             class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">
+            Products
+          </a>
+          <a routerLink="/category" routerLinkActive="active-nav-link"
+             class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">
+            Categories
+          </a>
+          <a routerLink="/brand" routerLinkActive="active-nav-link"
+             class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">
+            Brands
+          </a>
+          <a routerLink="/deals" routerLinkActive="active-nav-link"
+             class="px-3 py-2 rounded-md text-sm font-medium text-rose-600 hover:bg-rose-50 transition-colors">
+            Deals
+          </a>
+        </div>
+      </div>
+
+      <!-- Middle Section: Search -->
+      <div class="hidden md:block flex-1 max-w-2xl mx-4">
+        <div class="relative">
+          <div class="flex">
+            <!-- Category Dropdown -->
+            <div class="dropdown dropdown-hover">
+              <button tabindex="0" class="btn btn-ghost btn-sm rounded-l-full border border-r-0 border-gray-200 h-10">
+                All Categories
+                <i class="ri-arrow-down-s-line ml-1"></i>
+              </button>
+              <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-52 mt-1">
+                <li><a>Electronics</a></li>
+                <li><a>Fashion</a></li>
+                <li><a>Home & Garden</a></li>
+                <li><a>Sports</a></li>
+                <li><a>Beauty</a></li>
+                <li><a>Toys</a></li>
+                <li class="divider"></li>
+                <li><a>All Categories</a></li>
+              </ul>
+            </div>
+
+            <!-- Search Input -->
+            <input type="text" placeholder="What are you looking for today?"
+                   class="input input-bordered h-10 rounded-none focus:outline-none w-full">
+
+            <!-- Search Button -->
+            <button class="btn bg-primary hover:bg-primary-focus h-10 rounded-r-full border-none text-white px-5">
+              <i class="ri-search-line"></i>
             </button>
           </div>
+        </div>
+      </div>
 
-
-
-
-
-          <div class="card-actions">
-            <a routerLink="/cart" routerLinkActive="active" class="btn bg-transparent border-none">
-              <span><i class="ri-shopping-cart-line text-2xl"></i></span>
-              <div class="flex flex-col-reverse gap-1 items-center">
-                <a >Cart</a>
-                <span class="badge-neutral px-3 py-0.5 rounded-full">0</span>
-              </div>
-            </a>
-          </div>
-  </div>
-
-
-    <div routerLink="/login-user"  class="dropdown dropdown-end">
-      <div class="Auth-actions">
-        <button class="btn bg-transparent border-none">
-          <span><i class="ri-user-6-line text-gray-500 text-3xl"></i></span>
-          <div class="flex flex-col gap-2 items-start">
-            <span class="font-normal">welcome</span>
-            <div class="flex flex-row gap-1 items-center font-normaltext-[16px]">
-              <span>Sign up</span>
-              <span>/</span>
-              <span>login</span>
-
-
-
-            </div>
-          </div>
+      <!-- Right Section: Actions -->
+      <div class="flex items-center">
+        <!-- Search button (Mobile only) -->
+        <button class="md:hidden btn btn-sm btn-ghost" aria-label="Search">
+          <i class="ri-search-line text-xl"></i>
         </button>
 
+        <!-- Language selector (Desktop only) -->
+        <div class="hidden lg:flex dropdown dropdown-end">
+          <button tabindex="0" class="btn btn-ghost btn-sm">
+            <i class="ri-translate text-gray-700 mr-1"></i>
+            <span>EN</span>
+            <i class="ri-arrow-down-s-line ml-1"></i>
+          </button>
+          <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-40 mt-1">
+            <li><a>English</a></li>
+            <li><a>Français</a></li>
+            <li><a>Español</a></li>
+            <li><a>Deutsch</a></li>
+          </ul>
+        </div>
+
+        <!-- Wishlist -->
+        <a routerLink="/wishlist" class="btn btn-ghost btn-sm relative">
+          <i class="ri-heart-3-line text-xl"></i>
+          <span class="absolute -top-1 -right-1 bg-rose-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">3</span>
+        </a>
+
+        <!-- Cart -->
+        <div class="dropdown dropdown-end">
+          <button tabindex="0" class="btn btn-ghost btn-sm relative">
+            <i class="ri-shopping-bag-line text-xl"></i>
+            <span class="absolute -top-1 -right-1 bg-primary text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">{{cartItemCount || 0}}</span>
+          </button>
+          <div tabindex="0" class="dropdown-content z-[1] card card-compact w-80 p-2 shadow-xl bg-base-100 mt-1">
+            <div class="card-body">
+              <h3 class="font-medium text-lg">Shopping Cart</h3>
+
+              @if (cartItemCount > 0) {
+                <div class="max-h-64 overflow-auto">
+                  <!-- Cart items would go here -->
+                  <div class="flex py-3 border-b border-gray-100">
+                    <img src="https://picsum.photos/60/60" alt="Product" class="w-12 h-12 object-cover rounded">
+                    <div class="ml-3 flex-1">
+                      <h4 class="text-sm font-medium line-clamp-1">Wireless Headphones</h4>
+                      <p class="text-xs text-gray-500">1 x $129.99</p>
+                    </div>
+                    <button class="btn btn-ghost btn-xs text-gray-400">
+                      <i class="ri-delete-bin-line"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="flex justify-between mt-2 font-medium">
+                  <span>Subtotal:</span>
+                  <span>$129.99</span>
+                </div>
+                <div class="flex flex-col gap-2 mt-3">
+                  <a routerLink="/cart" class="btn btn-sm btn-primary text-white">View Cart</a>
+                  <a routerLink="/checkout" class="btn btn-sm btn-outline">Checkout</a>
+                </div>
+              } @else {
+                <div class="flex flex-col items-center justify-center py-6">
+                  <i class="ri-shopping-cart-line text-4xl text-gray-300 mb-2"></i>
+                  <p class="text-gray-500">Your cart is empty</p>
+                  <a routerLink="/products" class="btn btn-sm btn-primary text-white mt-3">Shop Now</a>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- User Account -->
+        <div class="dropdown dropdown-end">
+          <button tabindex="0" class="btn btn-ghost btn-sm gap-2 ml-1">
+            @if (isAuthenticated) {
+              <div class="avatar">
+                <div class="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-1">
+                  <img src="https://picsum.photos/100/100" alt="Avatar" />
+                </div>
+              </div>
+            } @else {
+              <i class="ri-user-line text-xl"></i>
+            }
+            <i class="ri-arrow-down-s-line"></i>
+          </button>
+
+          <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-64 mt-1">
+            @if (isAuthenticated) {
+              <div class="px-4 py-2 border-b border-gray-100 mb-1">
+                <p class="font-medium">Hello, {{userName}}</p>
+                <p class="text-xs text-gray-500">{{userEmail || 'user@example.com'}}</p>
+              </div>
+              <li><a routerLink="/profile"><i class="ri-user-settings-line mr-2"></i>My Account</a></li>
+              <li><a routerLink="/orders"><i class="ri-file-list-line mr-2"></i>My Orders</a></li>
+              <li><a routerLink="/wishlist"><i class="ri-heart-3-line mr-2"></i>Wishlist</a></li>
+              <li class="divider"></li>
+              <li>
+                <div class="flex justify-between items-center mb-4">
+                  <span class="flex items-center"><i class="ri-moon-line mr-2"></i> Dark Mode</span>
+                  <div class="relative inline-block h-6 w-11">
+                    <input type="checkbox" [(ngModel)]="darkMode" (change)="toggleDarkMode()" id="darkModeToggle-{{$index || 1}}" class="sr-only peer">
+                    <label [for]="'darkModeToggle-' + ($index || 1)"
+                           class="flex items-center cursor-pointer w-11 h-6 rounded-full transition-all duration-300
+                                  bg-gray-300 peer-checked:bg-green-500 peer-focus:outline-none shadow-inner">
+                      <div class="w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ease-in-out
+                                  translate-x-0.5 peer-checked:translate-x-5"></div>
+                    </label>
+                  </div>
+                </div>
+              </li>
+              <li class="divider"></li>
+              <li><a (click)="logout()" class="text-rose-600"><i class="ri-logout-box-r-line mr-2"></i>Log out</a></li>
+            } @else {
+              <div class="p-4 text-center border-b border-gray-100">
+                <h3 class="font-medium mb-1">Welcome to Our Shop</h3>
+                <p class="text-xs text-gray-500 mb-3">Sign in to enjoy exclusive benefits</p>
+                <div class="grid grid-cols-2 gap-2">
+                  <a routerLink="/login-user" class="btn btn-primary btn-sm text-white">Sign In</a>
+                  <a routerLink="/signup-user" class="btn btn-outline btn-sm">Register</a>
+                </div>
+              </div>
+              <li><a routerLink="/help"><i class="ri-customer-service-line mr-2"></i>Help Center</a></li>
+              <li>
+                <div class="flex justify-between items-center mb-4">
+                  <span class="flex items-center"><i class="ri-moon-line mr-2"></i> Dark Mode</span>
+                  <div class="relative inline-block h-6 w-11">
+                    <input type="checkbox" [(ngModel)]="darkMode" (change)="toggleDarkMode()" id="darkModeToggle-{{$index || 1}}" class="sr-only peer">
+                    <label [for]="'darkModeToggle-' + ($index || 1)"
+                           class="flex items-center cursor-pointer w-11 h-6 rounded-full transition-all duration-300
+                                  bg-gray-300 peer-checked:bg-green-500 peer-focus:outline-none shadow-inner">
+                      <div class="w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ease-in-out
+                                  translate-x-0.5 peer-checked:translate-x-5"></div>
+                    </label>
+                  </div>
+                </div>
+              </li>
+            }
+          </ul>
+        </div>
       </div>
     </div>
-   }
   </div>
 
+  <!-- Mobile Search (expandable) -->
+  <div class="md:hidden border-t border-gray-100 overflow-hidden transition-all duration-300"
+       [ngClass]="{'h-0': !showMobileSearch, 'h-16 py-3': showMobileSearch}">
+    <div class="container mx-auto px-4">
+      <div class="flex">
+        <button class="btn btn-ghost btn-sm border border-r-0 border-gray-200 h-10 rounded-l-full">
+          <i class="ri-menu-line"></i>
+        </button>
+        <input type="text" placeholder="Search..."
+               class="input input-bordered h-10 rounded-none flex-1 focus:outline-none">
+        <button class="btn bg-primary hover:bg-primary-focus h-10 rounded-r-full border-none text-white px-4">
+          <i class="ri-search-line"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Navigation Menu (full-screen) -->
+<div class="fixed inset-0 bg-black/50 z-50 transition-opacity duration-300"
+     [ngClass]="{'opacity-100': showMobileMenu, 'opacity-0 pointer-events-none': !showMobileMenu}">
+  <div class="bg-white h-full w-4/5 max-w-sm transform transition-transform duration-300"
+       [ngClass]="{'translate-x-0': showMobileMenu, '-translate-x-full': !showMobileMenu}">
+
+    <div class="flex justify-between items-center p-4 border-b">
+      <div class="flex items-center">
+        <img src="images/logo.svg" alt="Shop Logo" class="h-8">
+      </div>
+      <button class="btn btn-sm btn-ghost" (click)="closeMobileMenu()">
+        <i class="ri-close-line text-xl"></i>
+      </button>
+    </div>
+
+    <div class="overflow-y-auto h-[calc(100%-60px)]">
+      <!-- User info section -->
+      <div class="p-4 border-b">
+        @if (isAuthenticated) {
+          <div class="flex items-center mb-3">
+            <div class="avatar">
+              <div class="w-10 h-10 rounded-full">
+                <img src="https://picsum.photos/100/100" alt="Avatar" />
+              </div>
+            </div>
+            <div class="ml-3">
+              <p class="font-medium">{{userName}}</p>
+              <p class="text-xs text-gray-500">{{userEmail || 'user@example.com'}}</p>
+            </div>
+          </div>
+          <a routerLink="/profile" class="btn btn-outline btn-sm w-full">Manage Account</a>
+        } @else {
+          <div class="grid grid-cols-2 gap-2">
+            <a routerLink="/login-user" class="btn btn-primary btn-sm text-white">Sign In</a>
+            <a routerLink="/signup-user" class="btn btn-outline btn-sm">Register</a>
+          </div>
+        }
+      </div>
+
+      <!-- Navigation links -->
+      <div class="p-4">
+        <ul class="menu menu-md">
+          <li><a routerLink="/home" routerLinkActive="active-nav-link" class="flex items-center py-3">
+            <i class="ri-home-5-line mr-3 text-lg"></i> Home
+          </a></li>
+          <li><a routerLink="/products" routerLinkActive="active-nav-link" class="flex items-center py-3">
+            <i class="ri-shopping-bag-line mr-3 text-lg"></i> Products
+          </a></li>
+          <li><a routerLink="/category" routerLinkActive="active-nav-link" class="flex items-center py-3">
+            <i class="ri-function-line mr-3 text-lg"></i> Categories
+          </a></li>
+          <li><a routerLink="/brand" routerLinkActive="active-nav-link" class="flex items-center py-3">
+            <i class="ri-price-tag-3-line mr-3 text-lg"></i> Brands
+          </a></li>
+          <li><a routerLink="/deals" routerLinkActive="active-nav-link" class="flex items-center py-3 text-rose-600">
+            <i class="ri-coupon-3-line mr-3 text-lg"></i> Today's Deals
+          </a></li>
+          <li class="divider"></li>
+          <li><a routerLink="/orders" class="flex items-center py-3">
+            <i class="ri-file-list-line mr-3 text-lg"></i> My Orders
+          </a></li>
+          <li><a routerLink="/wishlist" class="flex items-center py-3">
+            <i class="ri-heart-3-line mr-3 text-lg"></i> Wishlist
+          </a></li>
+        </ul>
+      </div>
+
+      <!-- Settings section -->
+      <div class="p-4 border-t">
+        <div class="flex justify-between items-center mb-4">
+          <span class="flex items-center"><i class="ri-moon-line mr-2"></i> Dark Mode</span>
+          <div class="relative inline-block h-6 w-11">
+            <input type="checkbox" [(ngModel)]="darkMode" (change)="toggleDarkMode()" id="darkModeToggle-{{$index || 1}}" class="sr-only peer">
+            <label [for]="'darkModeToggle-' + ($index || 1)"
+                   class="flex items-center cursor-pointer w-11 h-6 rounded-full transition-all duration-300
+                          bg-gray-300 peer-checked:bg-green-500 peer-focus:outline-none shadow-inner">
+              <div class="w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 ease-in-out
+                          translate-x-0.5 peer-checked:translate-x-5"></div>
+            </label>
+          </div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+          <span class="flex items-center"><i class="ri-translate mr-2"></i> Language</span>
+          <select class="select select-sm select-bordered" aria-label="Select language">
+            <option>English</option>
+            <option>Français</option>
+            <option>Español</option>
+            <option>Deutsch</option>
+          </select>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="flex items-center"><i class="ri-money-dollar-circle-line mr-2"></i> Currency</span>
+          <select class="select select-sm select-bordered" aria-label="Select currency">
+            <option>USD ($)</option>
+            <option>EUR (€)</option>
+            <option>GBP (£)</option>
+            <option>DZD (د.ج)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Bottom section -->
+      <div class="p-4 border-t mt-4">
+        @if (isAuthenticated) {
+          <button (click)="logout()" class="btn btn-outline btn-error btn-sm w-full">
+            <i class="ri-logout-box-r-line mr-2"></i> Log out
+          </button>
+        } @else {
+          <a routerLink="/help" class="btn btn-ghost btn-sm w-full">
+            <i class="ri-customer-service-line mr-2"></i> Help Center
+          </a>
+        }
+      </div>
+    </div>
+  </div>
 </div>
+
