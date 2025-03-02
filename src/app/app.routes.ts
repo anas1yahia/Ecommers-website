@@ -10,41 +10,35 @@ import { CartComponent } from './features/cart/cart.component';
 import { ListProductComponent } from './features/product/components/list-product/list-product.component';
 import { DetailsProductComponent } from './features/product/components/details-product/details-product.component';
 import { SignUpComponent } from './core/auth/components/sign-up/sign-up.component';
+import { authGuard } from './core/guards/auth-guard.guard';
 
 
 export const routes: Routes = [
-
+  // Auth routes FIRST - no guard, so they're always accessible
   {
-    path: '', component: UserComponent, children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent},
-      { path: 'category', component: CategoryListComponent},
-      { path: 'products', component: ListProductComponent},
-      { path: 'product-details/:id', component: DetailsProductComponent},
-      { path: 'cart', component: CartComponent},
-      { path: 'login-user', component: LoginComponent},
-      { path: 'signup-user', component: SignUpComponent},
-      { path: '**', component: NotFoundComponent},
-
+    path: '',
+    component: AuthComponent,
+    children: [
+      { path: '', redirectTo: 'login-user', pathMatch: 'full' },
+      { path: 'login-user', component: LoginComponent },
+      { path: 'signup-user', component: SignUpComponent }
     ]
   },
 
+  // Protected routes SECOND - with guard
   {
-    path: 'auth', component: AuthComponent, children: [
-      {
-        path: '', redirectTo: 'login', pathMatch: 'full'
-    },
-      {
-        path: 'login', component: LoginComponent
-    },
-      {
-        path: 'sign-up', component: LoginComponent
-    },
-      {
-        path: '**', component: NotFoundComponent
-    }
+    path: '',
+    component: UserComponent,
+    canActivate: [authGuard],
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'category', component: CategoryListComponent },
+      { path: 'products', component: ListProductComponent },
+      { path: 'product-details/:id', component: DetailsProductComponent },
+      { path: 'cart', component: CartComponent }
     ]
   },
 
-
+  // Global 404 route LAST
+  { path: '**', component: NotFoundComponent }
 ];

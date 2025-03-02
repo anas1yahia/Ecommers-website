@@ -73,7 +73,7 @@
 
   <div class="navbar-center hidden lg:flex">
    @if (layout == 'user') {
-    <div class="flex  flex-row">
+    <div class="flex   gap-4  flex-row">
         <ul class="menu menu-horizontal px-1 text-[16px] gap-2">
               <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
               <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
@@ -107,44 +107,102 @@
     </div>
 
 
-      <div routerLink="/login-user"  class="dropdown dropdown-end">
-        <div class="Auth-actions">
-          <button class="btn bg-transparent border-none">
-            <span><i class="ri-user-6-line text-gray-500 text-3xl"></i></span>
-            <div class="flex flex-col gap-2 items-start">
-              <span class="font-normal">welcome</span>
-              <div class="flex flex-row gap-1 items-center font-normaltext-[16px]">
-                <span>Sign up</span>
-                <span>/</span>
-                <span>login</span>
-
-
-
-              </div>
-            </div>
-          </button>
-
-        </div>
+      <!-- User Profile Dropdown -->
+<div class="dropdown dropdown-end">
+  <!-- Dropdown trigger -->
+  <div tabindex="0" role="button" class="btn bg-transparent border-none">
+    <span><i class="ri-user-6-line text-gray-500 text-3xl"></i></span>
+    <div class="flex flex-col gap-2 items-start">
+      <span class="font-normal">Welcome</span>
+      <div class="flex flex-row gap-1 items-center font-normaltext-[16px]">
+        <span>My Account</span>
       </div>
+    </div>
+  </div>
+
+  <!-- Dropdown content -->
+  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-64 mt-4">
+    <!-- Profile section -->
+    <li class="menu-title">Account</li>
+    <li><a><i class="ri-user-settings-line mr-2"></i>My Preferences</a></li>
+
+    <!-- Dark mode toggle -->
+    <li>
+      <div class="flex justify-between items-center px-4 py-2">
+        <span><i class="ri-moon-line mr-2"></i>Dark Mode</span>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" class="sr-only peer">
+          <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+        </label>
+      </div>
+    </li>
+
+    <!-- Activities section -->
+    <li class="menu-title mt-2">Activities</li>
+    <li><a><i class="ri-history-line mr-2"></i>Browsing History</a></li>
+    <li><a><i class="ri-heart-3-line mr-2"></i>Preferred Items</a></li>
+
+    <!-- Settings section -->
+    <li class="divider"></li>
+    <li><a class="text-error"><i class="ri-logout-box-r-line mr-2"></i>Log out</a></li>
+  </ul>
+</div>
 
 
    }@else {
-    <div class="auth-actions flex items-center gap-4">
-      <!-- Sign In Button -->
-      <button class="btn btn-ghost hover:bg-base-200 rounded-full">
-        <span class="flex items-center gap-2">
-          <i class="ri-login-circle-line text-2xl text-primary"></i>
-          <span class="font-medium">Sign In</span>
-        </span>
-      </button>
 
-      <!-- Sign Up Button -->
-      <button class="btn btn-primary rounded-full">
-        <span class="flex items-center gap-2">
-          <i class="ri-user-add-line text-xl"></i>
-          <span class="font-medium">Sign Up</span>
-        </span>
-      </button>
+    <div class="flex h-fit  gap-4  flex-row">
+      <ul class="menu menu-horizontal px-1 text-[16px] gap-2">
+            <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+            <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
+            <li><a routerLink="/category" routerLinkActive="active">Categories</a></li>
+            <li><a routerLink="/brand" routerLinkActive="active">Brands</a></li>
+          </ul>
+
+          <div class="language-actions">
+            <button class="btn bg-transparent border-none">
+              <span><i class="ri-translate text-green-600 text-2xl"></i></span>
+              <div class="flex flex-col gap-1 items-start">
+                <span>ENGLISH</span>
+                <span>/ DZD</span>
+              </div>
+            </button>
+          </div>
+
+
+
+
+
+          <div class="card-actions">
+            <a routerLink="/cart" routerLinkActive="active" class="btn bg-transparent border-none">
+              <span><i class="ri-shopping-cart-line text-2xl"></i></span>
+              <div class="flex flex-col-reverse gap-1 items-center">
+                <a >Cart</a>
+                <span class="badge-neutral px-3 py-0.5 rounded-full">0</span>
+              </div>
+            </a>
+          </div>
+  </div>
+
+
+    <div routerLink="/login-user"  class="dropdown dropdown-end">
+      <div class="Auth-actions">
+        <button class="btn bg-transparent border-none">
+          <span><i class="ri-user-6-line text-gray-500 text-3xl"></i></span>
+          <div class="flex flex-col gap-2 items-start">
+            <span class="font-normal">welcome</span>
+            <div class="flex flex-row gap-1 items-center font-normaltext-[16px]">
+              <span>Sign up</span>
+              <span>/</span>
+              <span>login</span>
+
+
+
+            </div>
+          </div>
+        </button>
+
+      </div>
     </div>
    }
   </div>
