@@ -1,0 +1,39 @@
+
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .product-card {
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+
+  .parallax-container {
+    overflow: hidden;
+    will-change: transform;
+  }
+
+  .parallax-img {
+    will-change: transform;
+  }
+
+  /* Subtle hover parallax effect */
+  .card-container:hover .product-card {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+  }
+
+  /* Optional - advanced 3D perspective effect (enable if desired) */
+  /*
+  .card-container:hover .parallax-img {
+    transform: translateZ(20px) scale(1.1);
+  }
+  */
+
+  .action-btn {
+    will-change: transform, opacity;
+  }
+
+  .add-to-cart-btn {
+    will-change: transform;
+  }
