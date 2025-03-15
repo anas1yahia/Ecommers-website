@@ -1,29 +1,29 @@
-<section class="p-4 flex items-center animate-slide-in" [style.animation-delay.s]="i * 0.1">
+<section class="p-4 flex items-center animate-slide-in">
   <!-- Product image -->
   <div class="w-24 h-24 flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
-    <img [src]="item.image" [alt]="item.name" class="w-full h-full object-cover">
+    <img [src]="product.product.imageCover" [alt]="product.product.title" class="w-full h-full object-cover">
   </div>
 
   <!-- Product details -->
   <div class="ml-4 flex-1">
     <div class="flex justify-between">
-      <h3 class="text-base font-medium">{{item.name}}</h3>
-      <p class="font-medium">${{item.price * item.quantity}}</p>
+      <h3 class="text-base font-medium">{{product.product.title}}</h3>
+      <p class="font-medium">${{product.price * product.count}}</p>
     </div>
-    <p class="text-sm text-gray-500">{{item.variant}}</p>
+    <p class="text-sm text-gray-500">{{product.product.category?.name || 'Product Category'}}</p>
 
     <!-- Quantity and remove controls -->
     <div class="mt-2 flex items-center justify-between">
       <div class="flex items-center border rounded-md">
-        <button (click)="updateQuantity(item, -1)" class="px-3 py-1 hover:bg-gray-100 transition-colors">
+        <button (click)="updateQuantity(-1)" class="px-3 py-1 hover:bg-gray-100 transition-colors">
           <i class="ri-subtract-line"></i>
         </button>
-        <span class="px-3 py-1">{{item.quantity}}</span>
-        <button (click)="updateQuantity(item, 1)" class="px-3 py-1 hover:bg-gray-100 transition-colors">
+        <span class="px-3 py-1">{{product.count}}</span>
+        <button (click)="updateQuantity(1)" class="px-3 py-1 hover:bg-gray-100 transition-colors">
           <i class="ri-add-line"></i>
         </button>
       </div>
-      <button (click)="removeItem(item)" class="text-red-500 hover:text-red-700 transition-colors">
+      <button (click)="removeProduct()" class="text-red-500 hover:text-red-700 transition-colors">
         <i class="ri-delete-bin-6-line mr-1"></i>Remove
       </button>
     </div>
