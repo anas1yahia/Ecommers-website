@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { environments } from '../../../../environments/environments.prod';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class CardService {
 
   constructor(private httpClient: HttpClient, private auth : AuthService) { }
 
-  addToCart(productId: string){
+  addToCart(productId: string): Observable<any>{
    return this.httpClient.post(environments.baseUrl + "cart",
     {productId, },
     {
@@ -22,7 +23,7 @@ export class CardService {
   }
 
 
-  UpdateCart(productId: string, quantity: number){
+  UpdateCart(productId: string, quantity: number): Observable<any>{
     return this.httpClient.put(environments.baseUrl + "cart/" + productId,
      { quantity},
      {
@@ -35,7 +36,7 @@ export class CardService {
 
 
 
-  getLoggedUserCart(){
+  getLoggedUserCart(): Observable<any>{
     return this.httpClient.get(environments.baseUrl + "cart" ,
 
      {
@@ -46,7 +47,7 @@ export class CardService {
    );
    }
 
-  RemoveCartItem(productId: string, ){
+  RemoveCartItem(productId: string, ): Observable<any>{
     return this.httpClient.delete(environments.baseUrl + "cart/" + productId,
 
      {
@@ -57,7 +58,7 @@ export class CardService {
    );
    }
 
-   ClearCart(){
+   ClearCart(): Observable<any>{
     return this.httpClient.get(environments.baseUrl + "cart" ,
 
      {

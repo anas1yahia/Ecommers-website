@@ -8,7 +8,7 @@
   <!-- Cart Content with Animation Container -->
   <div class="cart-container">
     <!-- Empty Cart State -->
-    @if (!cartItems || cartItems.length === 0) {
+    @if (CartDetails.data.products.length === 0) {
       <div class="empty-cart-container animate-fade-in">
         <div class="text-center py-16 px-4">
           <div class="mb-6">
@@ -24,50 +24,22 @@
     }
 
     <!-- Cart Items -->
-    @if (cartItems && cartItems.length > 0) {
+    @if (CartDetails.data.products.length > 0) {
       <div class="grid gap-8 lg:grid-cols-3">
         <!-- Cart Items List (2/3 width) -->
         <div class="lg:col-span-2">
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <!-- Cart items header -->
             <div class="p-4 bg-gray-50 border-b flex justify-between items-center">
-              <h2 class="text-lg font-medium">Shopping Cart ({{cartItems.length}} items)</h2>
+              <h2 class="text-lg font-medium">Shopping Cart ({{CartDetails.data.products.length}} items)</h2>
               <button class="text-sm text-primary hover:underline">Clear all</button>
             </div>
 
             <!-- Cart items list -->
             <ul class="divide-y divide-gray-200">
-              @for (item of cartItems; track item.id; let i = $index) {
-                <li class="p-4 flex items-center animate-slide-in" [style.animation-delay.s]="i * 0.1">
-                  <!-- Product image -->
-                  <div class="w-24 h-24 flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
-                    <img [src]="item.image" [alt]="item.name" class="w-full h-full object-cover">
-                  </div>
-
-                  <!-- Product details -->
-                  <div class="ml-4 flex-1">
-                    <div class="flex justify-between">
-                      <h3 class="text-base font-medium">{{item.name}}</h3>
-                      <p class="font-medium">${{item.price * item.quantity | number:'1.2-2'}}</p>
-                    </div>
-                    <p class="text-sm text-gray-500">{{item.variant}}</p>
-
-                    <!-- Quantity and remove controls -->
-                    <div class="mt-2 flex items-center justify-between">
-                      <div class="flex items-center border rounded-md">
-                        <button (click)="updateQuantity(item, -1)" class="px-3 py-1 hover:bg-gray-100 transition-colors">
-                          <i class="ri-subtract-line"></i>
-                        </button>
-                        <span class="px-3 py-1">{{item.quantity}}</span>
-                        <button (click)="updateQuantity(item, 1)" class="px-3 py-1 hover:bg-gray-100 transition-colors">
-                          <i class="ri-add-line"></i>
-                        </button>
-                      </div>
-                      <button (click)="removeItem(item)" class="text-red-500 hover:text-red-700 transition-colors">
-                        <i class="ri-delete-bin-6-line mr-1"></i>Remove
-                      </button>
-                    </div>
-                  </div>
+              @for (item of CartDetails.data.products; track  $index) {
+                <li class="p-4 flex items-center animate-slide-in" [style.animation-delay.s]="$index * 0.1">
+                 <app-cart-item></app-cart-item>
                 </li>
               }
               @empty {
@@ -93,27 +65,27 @@
             <div class="space-y-4">
               <div class="flex justify-between">
                 <span class="text-gray-500">Subtotal</span>
-                <span>${{subtotal | number:'1.2-2'}}</span>
+                <span></span>
               </div>
               <div class="flex justify-between">
                 <span class="text-gray-500">Shipping</span>
-                <span>${{shipping | number:'1.2-2'}}</span>
+                <span></span>
               </div>
               <div class="flex justify-between">
                 <span class="text-gray-500">Tax</span>
-                <span>${{tax | number:'1.2-2'}}</span>
+                <span></span>
               </div>
 
               <div class="border-t pt-4 mt-4">
                 <div class="flex justify-between font-medium">
                   <span>Total</span>
-                  <span class="text-xl">${{total | number:'1.2-2'}}</span>
+                  <span class="text-xl">{{CartDetails.data.totalCartPrice}}</span>
                 </div>
               </div>
             </div>
 
             <!-- Checkout button with animation -->
-            <button (click)="checkout()" class="btn btn-primary w-full mt-6 relative overflow-hidden checkout-btn">
+            <button  class="btn btn-primary w-full mt-6 relative overflow-hidden checkout-btn">
               <span>Proceed to Checkout</span>
               <i class="ri-arrow-right-line ml-2"></i>
             </button>
