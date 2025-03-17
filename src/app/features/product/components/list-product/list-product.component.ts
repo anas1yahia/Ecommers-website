@@ -36,7 +36,7 @@ export class ListProductComponent {
 
 
     this.cardService.addToCart(product.id).subscribe({
-     next: (res) => {
+      next: (res: any) => {
        console.log(res);
      }
     }

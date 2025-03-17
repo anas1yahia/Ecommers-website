@@ -1,9 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CartItemComponent } from "./cart-item/cart-item.component";
 import { CardService } from '../product/services/card.service';
-import { Cart } from './modules/cart.interfaxw';
+import { CartItemComponent } from './cart-item/cart-item.component';
+
+interface Cart {
+  data: {
+    products: any[];
+    totalCartPrice: number;
+  };
+}
 
 @Component({
   selector: 'app-cart',
@@ -13,17 +19,31 @@ import { Cart } from './modules/cart.interfaxw';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  cartItems: any;
-  CartDetails: Cart = {} as Cart;
-  isLoading: boolean = false;
+  // Initialize with safe defaults
+  CartDetails: Cart = {
+    data: {
+      products: [],
+      totalCartPrice: 0
+    }
+  };
+  isLoading: boolean = true;
 
-  private readonly cardService = inject(CardService);
+  constructor(
+    private cardService: CardService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
-    this.loadCart();
+    // Only load cart in browser environment
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadCart();
+    } else {
+      // In SSR, just set loading to false
+      this.isLoading = false;
+    }
   }
 
-  loadCart() {
+  loadCart(): void {
     this.isLoading = true;
     this.cardService.getLoggedUserCart().subscribe({
       next: (res) => {
@@ -33,11 +53,18 @@ export class CartComponent implements OnInit {
       error: (err) => {
         console.error('Error loading cart:', err);
         this.isLoading = false;
+        // Set safe defaults on error
+        this.CartDetails = {
+          data: {
+            products: [],
+            totalCartPrice: 0
+          }
+        };
       }
     });
   }
 
-  removeItem(id: string) {
+  removeItem(id: string): void {
     this.isLoading = true;
     this.cardService.RemoveCartItem(id).subscribe({
       next: (res) => {
@@ -51,17 +78,5 @@ export class CartComponent implements OnInit {
     });
   }
 
-  clearCart() {
-    this.isLoading = true;
-    this.cardService.ClearCart().subscribe({
-      next: (res) => {
-        this.CartDetails = res;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error('Error clearing cart:', err);
-        this.isLoading = false;
-      }
-    });
-  }
+  
 }

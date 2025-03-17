@@ -1,71 +1,102 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { AuthService } from '../../../core/auth/services/auth.service';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 import { environments } from '../../../../environments/environments.prod';
-import { Observable } from 'rxjs';
+import { AuthService } from '../../../core/auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
-  constructor(private httpClient: HttpClient, private auth : AuthService) { }
+  getLoggedUserCart(): Observable<any> {
+    // Skip API calls during SSR
+    if (!isPlatformBrowser(this.platformId)) {
+      return of({ data: { products: [], totalCartPrice: 0 } });
+    }
 
-  addToCart(productId: string): Observable<any>{
-   return this.httpClient.post(environments.baseUrl + "cart",
-    {productId, },
-    {
-      headers: {
-        token : this.auth.getToken()!,
-      },}
+    // Only add headers in browser context
+    let headers = new HttpHeaders();
+    const token = this.authService.getToken();
+    if (token) {
+      headers = headers.set('token', token);
+    }
 
-  );
+    return this.http.get(`${environments.baseUrl}cart`, { headers });
   }
 
 
-  UpdateCart(productId: string, quantity: number): Observable<any>{
-    return this.httpClient.put(environments.baseUrl + "cart/" + productId,
-     { quantity},
-     {
-       headers: {
-         token : this.auth.getToken()!,
-       },}
 
-   );
-   }
+  addToCart(productId: string): Observable<any> {
+    // Skip API calls during SSR
+    if (!isPlatformBrowser(this.platformId)) {
+      return of({ data: { products: [], totalCartPrice: 0 } });
+    }
+
+    let headers = new HttpHeaders();
+    const token = this.authService.getToken();
+    if (token) {
+      headers = headers.set('token', token);
+    }
+
+    return this.http.post(`${environments.baseUrl}cart`,
+      { productId },
+      { headers }
+    );
+  }
 
 
+  RemoveCartItem(id: string): Observable<any> {
+    // Skip API calls during SSR
+    if (!isPlatformBrowser(this.platformId)) {
+      return of({ data: { products: [], totalCartPrice: 0 } });
+    }
 
-  getLoggedUserCart(): Observable<any>{
-    return this.httpClient.get(environments.baseUrl + "cart" ,
+    let headers = new HttpHeaders();
+    const token = this.authService.getToken();
+    if (token) {
+      headers = headers.set('token', token);
+    }
 
-     {
-       headers: {
-         token : this.auth.getToken()!,
-       },}
+    return this.http.delete(`${environments.baseUrl}cart/${id}`, { headers });
+  }
 
-   );
-   }
+  UpdateCart(productId: string, quantity: number): Observable<any> {
+    // Skip API calls during SSR
+    if (!isPlatformBrowser(this.platformId)) {
+      return of({ data: { products: [], totalCartPrice: 0 } });
+    }
 
-  RemoveCartItem(productId: string, ): Observable<any>{
-    return this.httpClient.delete(environments.baseUrl + "cart/" + productId,
+    let headers = new HttpHeaders();
+    const token = this.authService.getToken();
+    if (token) {
+      headers = headers.set('token', token);
+    }
 
-     {
-       headers: {
-         token : this.auth.getToken()!,
-       },}
+    return this.http.put(`${environments.baseUrl}cart/${productId}`,
+      { count: quantity },
+      { headers }
+    );
+  }
 
-   );
-   }
+  ClearCart(): Observable<any> {
+    // Skip API calls during SSR
+    if (!isPlatformBrowser(this.platformId)) {
+      return of({ data: { products: [], totalCartPrice: 0 } });
+    }
 
-   ClearCart(): Observable<any>{
-    return this.httpClient.get(environments.baseUrl + "cart" ,
+    let headers = new HttpHeaders();
+    const token = this.authService.getToken();
+    if (token) {
+      headers = headers.set('token', token);
+    }
 
-     {
-       headers: {
-         token : this.auth.getToken()!,
-       },}
-
-   );
-   }
+    return this.http.delete(`${environments.baseUrl}cart`, { headers });
+  }
 }

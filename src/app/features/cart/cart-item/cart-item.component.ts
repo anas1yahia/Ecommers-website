@@ -19,25 +19,6 @@ export class CartItemComponent {
     this.remove.emit(this.product.product._id);
   }
 
-  // Update quantity method
-  updateQuantity(change: number): void {
-    // Only proceed if the result would be > 0
-    const newCount = this.product.count + change;
-    if (newCount <= 0) {
-      // If quantity would become 0 or negative, just remove the item
-      this.removeProduct();
-      return;
-    }
+ 
 
-    // Call the service to update quantity
-    this.cardService.UpdateCart(this.product.product._id, newCount).subscribe({
-      next: (res) => {
-        // Update the product count in the UI
-        this.product.count = newCount;
-      },
-      error: (err) => {
-        console.error('Error updating quantity:', err);
-      }
-    });
-  }
 }

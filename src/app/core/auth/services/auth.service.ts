@@ -42,42 +42,44 @@ export class AuthService {
   }
 
   saveToken(token: string): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (typeof localStorage !== 'undefined') {
       localStorage.setItem('token', token);
     }
   }
 
   getToken(): string | null {
-    if (isPlatformBrowser(this.platformId)) {
+    if (typeof localStorage !== 'undefined') {
       return localStorage.getItem('token');
     }
     return null;
   }
 
+ isAuthnticated(): boolean {
+    if (typeof localStorage !== 'undefined') {
+      return !!this.getToken();
+    }
+    return false;
+  }
+
   saveUserData(user: User): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (typeof localStorage !== 'undefined') {
       localStorage.setItem('user', JSON.stringify(user));
       this.currentUserSubject.next(user);
     }
   }
 
   getUserData(): User | null {
-    if (isPlatformBrowser(this.platformId)) {
+    if (typeof localStorage !== 'undefined') {
       const userData = localStorage.getItem('user');
       return userData ? JSON.parse(userData) : null;
     }
     return null;
   }
 
-  isAuthnticated(): boolean {
-    if (isPlatformBrowser(this.platformId)) {
-      return !!this.getToken();
-    }
-    return false;
-  }
+
 
   logout(): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (typeof localStorage !== 'undefined') {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       this.currentUserSubject.next(null);
