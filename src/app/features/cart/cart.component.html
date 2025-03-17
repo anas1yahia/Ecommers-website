@@ -44,7 +44,7 @@
               <h2 class="text-lg font-medium">
                 Shopping Cart ({{ CartDetails.data.products.length }} items)
               </h2>
-              <button  class="text-sm text-primary hover:underline">
+              <button (click)="clearCart()" class="text-sm text-primary hover:underline">
                 Clear all
               </button>
             </div>
@@ -55,7 +55,9 @@
                 <li class="p-4">
                   <app-cart-item
                     [product]="item"
+                    (update)="updownQuantity($event.id, $event.count)"
                     (remove)="removeItem($event)">
+
                   </app-cart-item>
                 </li>
               }

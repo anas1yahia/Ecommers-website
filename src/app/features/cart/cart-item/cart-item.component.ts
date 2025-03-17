@@ -11,6 +11,7 @@ import { CardService } from '../../product/services/card.service';
 export class CartItemComponent {
   @Input() product: any;
   @Output() remove = new EventEmitter<string>();
+  @Output() update = new EventEmitter<{ id: string, count: number }>();
 
   constructor(private cardService: CardService) {}
 
@@ -19,6 +20,10 @@ export class CartItemComponent {
     this.remove.emit(this.product.product._id);
   }
 
- 
+  // Method to emit product ID and updated count
+  updateProductCount(count: number): void {
+    this.update.emit({ id: this.product.product._id, count });
+  }
+
 
 }

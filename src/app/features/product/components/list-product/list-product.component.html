@@ -453,7 +453,7 @@
 
           <!-- Remaining products -->
           @for (product of allProducts.slice(10); track product._id) {
-            <app-card-product [product]="product"></app-card-product>
+            <app-card-product [product]="product" (addToCart)="addProductToCart(product)"></app-card-product>
           }
         </div>
 

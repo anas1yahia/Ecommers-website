@@ -78,5 +78,27 @@ export class CartComponent implements OnInit {
     });
   }
 
-  
+  //updownQuantity
+  updownQuantity(id: string, count: number): void {
+
+    this.cardService.UpdateCart(id, count).subscribe({
+      next: (res) => {
+        this.CartDetails = res;
+
+      },
+
+    });
+  }
+
+  clearCart(): void {
+    this.cardService.ClearCart().subscribe({
+      next: (res) => {
+        this.CartDetails = res;
+        if (res.message == 'success') {
+          this.loadCart();
+
+        }
+      }
+    });
+  }
 }
