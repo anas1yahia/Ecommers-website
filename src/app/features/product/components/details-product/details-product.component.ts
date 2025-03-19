@@ -2,14 +2,15 @@ import { Product } from './../../modules/products';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
-import { CardProductComponent } from "../card-product/card-product.component";
 import { FotterComponent } from "../../../../shared/components/fotter/fotter.component";
+import { CardProductComponent } from "../card-product/card-product.component";
 
 
 
 @Component({
   selector: 'app-details-product',
-  imports: [CardProductComponent, FotterComponent],
+  standalone: true,
+  imports: [FotterComponent],
   templateUrl: './details-product.component.html',
   styleUrl: './details-product.component.css'
 })

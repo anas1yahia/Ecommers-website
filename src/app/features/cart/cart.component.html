@@ -16,7 +16,7 @@
     }
 
     <!-- Empty Cart State -->
-    @else if (!CartDetails?.data?.products?.length) {
+    @else if (!cartDetails?.data?.products?.length) {
       <div class="empty-cart-container animate-fade-in">
         <div class="text-center py-16 px-4">
           <div class="mb-6">
@@ -42,7 +42,7 @@
             <!-- Cart items header -->
             <div class="p-4 bg-gray-50 border-b flex justify-between items-center">
               <h2 class="text-lg font-medium">
-                Shopping Cart ({{ CartDetails.data.products.length }} items)
+                Shopping Cart ({{ cartDetails.data.products.length }} items)
               </h2>
               <button (click)="clearCart()" class="text-sm text-primary hover:underline">
                 Clear all
@@ -51,7 +51,7 @@
 
             <!-- Cart items list -->
             <ul class="divide-y divide-gray-200">
-              @for (item of CartDetails.data.products; track $index) {
+              @for (item of cartDetails.data.products; track $index) {
                 <li class="p-4">
                   <app-cart-item
                     [product]="item"
@@ -74,10 +74,10 @@
               <!-- Summary details -->
               <div class="flex justify-between">
                 <span>Total</span>
-                <span class="font-medium">{{ CartDetails?.data?.totalCartPrice || 0 }}</span>
+                <span class="font-medium">{{ cartDetails.data.totalCartPrice || 0 }}</span>
               </div>
 
-              <button routerLink="/checkout" class="w-full bg-primary text-white py-2 rounded-md">
+              <button [routerLink]="['/checkout', cartDetails.cartId]" class="w-full bg-primary text-white py-2 rounded-md">
                 Proceed to Checkout
               </button>
             </div>

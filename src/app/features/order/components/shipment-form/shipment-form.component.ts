@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { OrderService } from '../../service/order.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 interface ShippingOption {
   id: string;
@@ -27,6 +28,8 @@ export class ShipmentFormComponent implements OnInit {
   submitted = false;
   isSubmitting = false;
   validationErrors: string[] = [];
+  isLoading = true;
+  cartId: string | null = '';
 
   // Shipping options with various tiers
   shippingOptions: ShippingOption[] = [
@@ -62,37 +65,40 @@ export class ShipmentFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.initializeForm();
+    this.getCardId();
 
-    // Subscribe to form value changes for real-time validation
-    this.shipmentForm.valueChanges.subscribe(() => {
-      if (this.submitted) {
-        this.validateForm();
+
+  }
+
+  getCardId(): void {
+    this.activatedRoute.paramMap.subscribe({
+      next: (data) => {
+        console.log(data);
+        this.cartId = data.get('id');
+
       }
-    });
+
+    })
   }
 
   // Initialize form with validators
   initializeForm(): void {
     this.shipmentForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
-      address: ['', [Validators.required, Validators.minLength(5)]],
+
+      details: ['', [Validators.required, Validators.minLength(5)]],
       city: ['', [Validators.required]],
-      postalCode: ['', [
-        Validators.required,
-        Validators.pattern('^[0-9]{5}(?:-[0-9]{4})?$')
-      ]],
+
       phone: ['', [
         Validators.required,
         Validators.pattern('^[0-9]{10,15}$')
       ]],
-      shippingMethod: ['', [Validators.required]],
-      notes: ['']
+
     });
   }
 
@@ -102,47 +108,33 @@ export class ShipmentFormComponent implements OnInit {
     return !!(control && control.invalid && (control.dirty || control.touched || this.submitted));
   }
 
-  // Get error messages for a specific field
-  getFieldErrorMessage(fieldName: string): string {
-    const control = this.shipmentForm.get(fieldName);
-    if (!control || !control.errors) return '';
 
-    if (control.errors['required']) return `${fieldName} is required`;
-    if (control.errors['minlength']) return `${fieldName} must be at least ${control.errors['minlength'].requiredLength} characters`;
-    if (control.errors['pattern']) {
-      if (fieldName === 'postalCode') return 'Please enter a valid postal code';
-      if (fieldName === 'phone') return 'Please enter a valid phone number';
+
+
+  // Submit the form
+  onSubmit() {
+    this.submitted = true;
+    if (this.shipmentForm.invalid) {
+      return;
     }
 
-    return 'Invalid input';
-  }
-
-  // Set shipping method when selected
-  selectShippingMethod(methodId: string): void {
-    this.shipmentForm.get('shippingMethod')?.setValue(methodId);
-    this.shipmentForm.get('shippingMethod')?.markAsTouched();
-
-    // Find selected option and emit
-    const selectedOption = this.shippingOptions.find(option => option.id === methodId);
-    if (selectedOption) {
-      this.shippingMethodChanged.emit(selectedOption);
+    if (!this.cartId) {
+      console.error("Error: cartId is null or undefined.");
+      return;
     }
-  }
 
-  // Validate the entire form and collect errors
-  validateForm(): void {
-    this.validationErrors = [];
-
-    Object.keys(this.shipmentForm.controls).forEach(key => {
-      const control = this.shipmentForm.get(key);
-      if (control && control.invalid) {
-        const errorMsg = this.getFieldErrorMessage(key);
-        if (errorMsg && !this.validationErrors.includes(errorMsg)) {
-          this.validationErrors.push(errorMsg);
-        }
+    this.isLoading = true;
+    this.orderService.Checkout(this.cartId, this.shipmentForm.value).subscribe({
+      next: (data) => {
+        console.log("Checkout successful:", data);
+        this.isLoading = false;
+        open(data.session.url, '_self');
+      },
+      error: (err) => {
+        console.error("Checkout failed:", err);
+        this.isLoading = false;
       }
     });
   }
-
 
 }

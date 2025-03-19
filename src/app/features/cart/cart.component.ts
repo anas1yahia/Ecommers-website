@@ -3,13 +3,9 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CardService } from '../product/services/card.service';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { Cart } from './modules/cart.interface';
 
-interface Cart {
-  data: {
-    products: any[];
-    totalCartPrice: number;
-  };
-}
+
 
 @Component({
   selector: 'app-cart',
@@ -20,11 +16,17 @@ interface Cart {
 })
 export class CartComponent implements OnInit {
   // Initialize with safe defaults
-  CartDetails: Cart = {
+  cartDetails: Cart  = {
     data: {
       products: [],
-      totalCartPrice: 0
-    }
+      totalCartPrice: 0,
+      cartOwner: '',
+      createdAt: '',
+      updatedAt: ''
+    },
+    status: '',
+    numOfCartItems: 0,
+    cartId: ''
   };
   isLoading: boolean = true;
 
@@ -47,18 +49,24 @@ export class CartComponent implements OnInit {
     this.isLoading = true;
     this.cardService.getLoggedUserCart().subscribe({
       next: (res) => {
-        this.CartDetails = res;
+        this.cartDetails = res;
         this.isLoading = false;
       },
       error: (err) => {
         console.error('Error loading cart:', err);
         this.isLoading = false;
         // Set safe defaults on error
-        this.CartDetails = {
+        this.cartDetails = {
           data: {
             products: [],
-            totalCartPrice: 0
-          }
+            totalCartPrice: 0,
+            cartOwner: '',
+            createdAt: '',
+            updatedAt: ''
+          },
+          status: '',
+          numOfCartItems: 0,
+          cartId: ''
         };
       }
     });
@@ -68,7 +76,7 @@ export class CartComponent implements OnInit {
     this.isLoading = true;
     this.cardService.RemoveCartItem(id).subscribe({
       next: (res) => {
-        this.CartDetails = res;
+        this.cartDetails = res;
         this.isLoading = false;
       },
       error: (err) => {
@@ -83,7 +91,7 @@ export class CartComponent implements OnInit {
 
     this.cardService.UpdateCart(id, count).subscribe({
       next: (res) => {
-        this.CartDetails = res;
+        this.cartDetails = res;
 
       },
 
@@ -93,7 +101,7 @@ export class CartComponent implements OnInit {
   clearCart(): void {
     this.cardService.ClearCart().subscribe({
       next: (res) => {
-        this.CartDetails = res;
+        this.cartDetails = res;
         if (res.message == 'success') {
           this.loadCart();
 

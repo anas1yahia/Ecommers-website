@@ -1,4 +1,4 @@
-<section class="bg-gray-50 py-8 min-h-screen items-center justify-center"> 
+<section class="bg-gray-50 py-8 min-h-screen items-center justify-center">
   <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Left Column with Heading and Forms -->
@@ -13,44 +13,6 @@
       </div>
 
       <form [formGroup]="shipmentForm" class="space-y-5">
-        <!-- Personal Information -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- First Name -->
-          <div class="form-group">
-            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name <span class="text-red-500">*</span></label>
-            <div class="relative">
-              <i class="ri-user-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-              <input
-                type="text"
-                id="firstName"
-                formControlName="firstName"
-                class="w-full pl-10 pr-4 py-2.5 border rounded-md transition-all focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                [ngClass]="{'border-red-500': isFieldInvalid('firstName'), 'border-gray-300': !isFieldInvalid('firstName')}"
-              >
-            </div>
-            @if (isFieldInvalid('firstName')) {
-              <div class="text-red-500 text-xs mt-1 animate-fade-in">First name is required</div>
-            }
-          </div>
-
-          <!-- Last Name -->
-          <div class="form-group">
-            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name <span class="text-red-500">*</span></label>
-            <div class="relative">
-              <i class="ri-user-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-              <input
-                type="text"
-                id="lastName"
-                formControlName="lastName"
-                class="w-full pl-10 pr-4 py-2.5 border rounded-md transition-all focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                [ngClass]="{'border-red-500': isFieldInvalid('lastName'), 'border-gray-300': !isFieldInvalid('lastName')}"
-              >
-            </div>
-            @if (isFieldInvalid('lastName')) {
-              <div class="text-red-500 text-xs mt-1 animate-fade-in">Last name is required</div>
-            }
-          </div>
-        </div>
 
         <!-- Address -->
         <div class="form-group">
@@ -60,12 +22,12 @@
             <input
               type="text"
               id="address"
-              formControlName="address"
+              formControlName="details"
               class="w-full pl-10 pr-4 py-2.5 border rounded-md transition-all focus:ring-2 focus:ring-primary/30 focus:border-primary"
-              [ngClass]="{'border-red-500': isFieldInvalid('address'), 'border-gray-300': !isFieldInvalid('address')}"
+              [ngClass]="{'border-red-500': isFieldInvalid('details'), 'border-gray-300': !isFieldInvalid('address')}"
             >
           </div>
-          @if (isFieldInvalid('address')) {
+          @if (isFieldInvalid('details')) {
             <div class="text-red-500 text-xs mt-1 animate-fade-in">Address is required</div>
           }
         </div>
@@ -89,28 +51,7 @@
             }
           </div>
 
-          <div class="form-group">
-            <label for="postalCode" class="block text-sm font-medium text-gray-700 mb-1">Postal Code <span class="text-red-500">*</span></label>
-            <div class="relative">
-              <i class="ri-mail-line absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-              <input
-                type="text"
-                id="postalCode"
-                formControlName="postalCode"
-                class="w-full pl-10 pr-4 py-2.5 border rounded-md transition-all focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                [ngClass]="{'border-red-500': isFieldInvalid('postalCode'), 'border-gray-300': !isFieldInvalid('postalCode')}"
-              >
-            </div>
-            @if (isFieldInvalid('postalCode')) {
-              <div class="text-red-500 text-xs mt-1 animate-fade-in">
-                @if (shipmentForm.get('postalCode')?.errors?.['required']) {
-                  Postal code is required
-                } @else if (shipmentForm.get('postalCode')?.errors?.['pattern']) {
-                  Please enter a valid postal code (e.g. 12345 or 12345-6789)
-                }
-              </div>
-            }
-          </div>
+
         </div>
 
         <!-- Phone Number -->
@@ -140,56 +81,6 @@
       </form>
     </div>
 
-
-        <!-- Shipping Methods Card -->
-    <div class="bg-white rounded-lg shadow-lg p-6 mb-6 animate-fade-in" style="animation-delay: 0.1s">
-      <div class="flex items-center mb-6">
-        <i class="ri-truck-line text-xl text-primary mr-2"></i>
-        <h2 class="text-xl font-bold">Shipping Method</h2>
-      </div>
-
-      <div class="space-y-3" [formGroup]="shipmentForm">
-        @for (option of shippingOptions; track option.id) {
-          <div
-            class="shipping-option border rounded-lg p-4 cursor-pointer transition-all hover:shadow-md"
-            [ngClass]="{
-              'border-primary bg-primary-50 shipping-selected': shipmentForm.get('shippingMethod')?.value === option.id,
-              'border-gray-200': shipmentForm.get('shippingMethod')?.value !== option.id
-            }"
-            (click)="selectShippingMethod(option.id)"
-          >
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <div class="w-5 h-5 border-2 rounded-full flex items-center justify-center"
-                    [ngClass]="{'border-primary': shipmentForm.get('shippingMethod')?.value === option.id}">
-                  <div
-                    class="w-3 h-3 rounded-full bg-primary transition-transform"
-                    [ngClass]="{'scale-100': shipmentForm.get('shippingMethod')?.value === option.id, 'scale-0': shipmentForm.get('shippingMethod')?.value !== option.id}"
-                  ></div>
-                </div>
-              </div>
-              <div class="ml-3 flex justify-between w-full items-center">
-                <div>
-                  <div class="text-sm font-medium">{{ option.name }}</div>
-                  <div class="flex items-center text-xs text-gray-500">
-                    <i class="ri-time-line mr-1"></i>
-                    {{ option.estimatedDelivery }}
-                  </div>
-                </div>
-                <div class="font-medium text-primary">${{ option.price.toFixed(2) }}</div>
-              </div>
-            </div>
-            @if (option.description) {
-              <p class="text-xs text-gray-500 mt-2 ml-8">{{ option.description }}</p>
-            }
-          </div>
-        }
-
-        @if (isFieldInvalid('shippingMethod')) {
-          <div class="text-red-500 text-xs mt-2 animate-fade-in">Please select a shipping method</div>
-        }
-      </div>
-    </div>
       </div>
 
       <!-- Right Column - Order Summary -->
@@ -220,9 +111,10 @@
 
             <button
               type="button"
-
+              (click)="onSubmit()"
               [disabled]="isSubmitting"
               class="bg-[#ff4747] text-white px-8 py-3 rounded-full font-medium hover:bg-[#e23c3c] transition-all shadow-md hover:shadow-lg flex items-center"
+
             >
               @if (isSubmitting) {
                 <span class="flex items-center">
@@ -237,12 +129,13 @@
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- Validation Summary - Full Width -->
     @if (submitted && shipmentForm.invalid) {
       <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-md mb-6 animate-fade-in">
-        <!-- Validation content - keeping the existing code -->
+
       </div>
     }
   </div>

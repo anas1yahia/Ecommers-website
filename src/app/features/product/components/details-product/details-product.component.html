@@ -103,7 +103,7 @@
                 <span class="badge badge-success">Free Returns</span>
               </div>
               <h1 class="text-2xl md:text-3xl font-semibold">{{ProductDetails.title}}</h1>
-              <p class="text-gray-500 text-sm">Model: PRO-X52 | SKU: {{ProductDetails._id?.substring(0,8)}}</p>
+              <p class="text-gray-500 text-sm">Model: PRO-X52 | SKU: {{ProductDetails._id.substring(0,8)}}</p>
             </div>
 
             <!-- Ratings & Orders -->
@@ -482,8 +482,9 @@
       }
     </div>
   </div>
+
 </main>
 
 <footer>
- <app-fotter></app-fotter>
+ <app-fotter ></app-fotter>
 </footer>
