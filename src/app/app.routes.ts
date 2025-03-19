@@ -11,6 +11,7 @@ import { ListProductComponent } from './features/product/components/list-product
 import { DetailsProductComponent } from './features/product/components/details-product/details-product.component';
 import { SignUpComponent } from './core/auth/components/sign-up/sign-up.component';
 import { authGuard } from './core/guards/auth-guard.guard';
+import { ShipmentFormComponent } from './features/order/components/shipment-form/shipment-form.component';
 
 
 export const routes: Routes = [
@@ -35,7 +36,8 @@ export const routes: Routes = [
       { path: 'products', component: ListProductComponent },
       { path: 'product-details/:id', component: DetailsProductComponent },
       { path: 'cart', component: CartComponent,
-    canActivate: [authGuard] }
+    canActivate: [authGuard] },
+    { path: 'checkout', component: ShipmentFormComponent },
     ]
   },
 

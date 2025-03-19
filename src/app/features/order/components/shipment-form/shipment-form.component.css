@@ -1,0 +1,132 @@
+:root {
+  --primary: #ff4747;
+  --primary-dark: #e23c3c;
+  --primary-50: rgba(255, 71, 71, 0.05);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease forwards, slideUp 0.6s ease forwards;
+}
+
+.checkout-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  position: relative;
+  z-index: 1;
+
+  .step-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    border: 2px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-weight: 600;
+    margin-bottom: 8px;
+    transition: all 0.3s;
+  }
+
+  .step-label {
+    font-size: 12px;
+    color: #777;
+    transition: all 0.3s;
+  }
+
+  &.completed .step-circle {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+
+  &.active .step-circle {
+    border-color: var(--primary);
+    color: var(--primary);
+    background-color: white;
+  }
+
+  &.active .step-label {
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  &.completed .step-label {
+    color: #333;
+  }
+}
+
+.step-line {
+  height: 2px;
+  background-color: #ddd;
+  flex-grow: 1;
+  margin: 0 -5px;
+  margin-bottom: 30px;
+  width: 80px;
+
+  &.active {
+    background-color: var(--primary);
+  }
+}
+
+.shipping-container {
+  transition: all 0.3s;
+}
+
+.shipping-option {
+  position: relative;
+  overflow: hidden;
+
+  &.shipping-selected::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: var(--primary);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 24px 24px 0;
+    border-color: transparent var(--primary) transparent transparent;
+  }
+
+  &.shipping-selected::after {
+    content: '✓';
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+  }
+}
+
+input, textarea {
+  &:focus {
+    outline: none;
+    border-color: var(--primary);
+  }
+}
+
+button:not(:disabled) {
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
