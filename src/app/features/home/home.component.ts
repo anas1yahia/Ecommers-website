@@ -7,7 +7,7 @@ import { FotterComponent } from "../../shared/components/fotter/fotter.component
 
 @Component({
   selector: 'app-home',
-  imports: [ListProductComponent, CategoryListComponent, MainSliderComponent, FotterComponent],
+  imports: [ListProductComponent, MainSliderComponent, FotterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
