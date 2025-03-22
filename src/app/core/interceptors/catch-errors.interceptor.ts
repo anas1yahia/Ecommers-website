@@ -8,17 +8,14 @@ export const catchErrorsInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((err) => {
-
       const errorMessage =
         err.error?.message ||
         err.error?.error ||
         err.message ||
         'An unexpected error occurred';
 
+      toaster.showError(errorMessage);
 
-      toaster.show(errorMessage);
-
-      
       return throwError(() => err);
     })
   );

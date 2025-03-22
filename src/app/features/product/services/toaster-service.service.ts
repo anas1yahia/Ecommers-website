@@ -18,8 +18,18 @@ export interface Toast {
   providedIn: 'root'
 })
 export class ToasterService {
-  showError(message: any) {
-    throw new Error('Method not implemented.');
+  showError(message: any, title: string = 'Error'): string {
+    return this.show({
+      title,
+      message: typeof message === 'string' ? message : 'An error occurred',
+      type: 'error',
+      duration: 5000 // Errors should stay visible slightly longer
+    });
+  }
+
+  // Also add error() as an alias to match ngx-toastr API
+  error(message: any, title: string = 'Error'): string {
+    return this.showError(message, title);
   }
   toasts = signal<Toast[]>([]);
   private timeouts = new Map<string, any>();
@@ -56,6 +66,7 @@ export class ToasterService {
 
     return id;
   }
+
 
   pauseToast(id: string): void {
     this.toasts.update(toasts =>
