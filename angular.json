@@ -28,6 +28,7 @@
             ],
             "styles": [
               "node_modules/remixicon/fonts/remixicon.css",
+              "node_modules/ngx-spinner/animations/triangle-skew-spin.css",
               "src/styles.css"
             ],
             "scripts": [],

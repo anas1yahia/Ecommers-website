@@ -21,11 +21,6 @@ export class OrderService {
 
     return this.http.post(
       environments.baseUrl + `orders/checkout-session/${cartId}${returnUrl}${successUrl}${cancelUrl}`,
-      {shippingAddress: shipment},
-      {
-        headers: {
-          token: this.authService.getToken() || ''
-        }
-      }
+      {shippingAddress: shipment}
     )
   }}

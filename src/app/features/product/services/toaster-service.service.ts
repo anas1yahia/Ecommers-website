@@ -18,6 +18,9 @@ export interface Toast {
   providedIn: 'root'
 })
 export class ToasterService {
+  showError(message: any) {
+    throw new Error('Method not implemented.');
+  }
   toasts = signal<Toast[]>([]);
   private timeouts = new Map<string, any>();
 

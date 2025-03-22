@@ -1,9 +1,8 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { environments } from '../../../../environments/environments.prod';
-import { AuthService } from '../../../core/auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,6 @@ import { AuthService } from '../../../core/auth/services/auth.service';
 export class CardService {
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -21,17 +19,9 @@ export class CardService {
       return of({ data: { products: [], totalCartPrice: 0 } });
     }
 
-    // Only add headers in browser context
-    let headers = new HttpHeaders();
-    const token = this.authService.getToken();
-    if (token) {
-      headers = headers.set('token', token);
-    }
-
-    return this.http.get(`${environments.baseUrl}cart`, { headers });
+    // No need for headers - interceptor will handle it
+    return this.http.get(`${environments.baseUrl}cart`);
   }
-
-
 
   addToCart(productId: string): Observable<any> {
     // Skip API calls during SSR
@@ -39,18 +29,8 @@ export class CardService {
       return of({ data: { products: [], totalCartPrice: 0 } });
     }
 
-    let headers = new HttpHeaders();
-    const token = this.authService.getToken();
-    if (token) {
-      headers = headers.set('token', token);
-    }
-
-    return this.http.post(`${environments.baseUrl}cart`,
-      { productId },
-      { headers }
-    );
+    return this.http.post(`${environments.baseUrl}cart`, { productId });
   }
-
 
   RemoveCartItem(id: string): Observable<any> {
     // Skip API calls during SSR
@@ -58,13 +38,7 @@ export class CardService {
       return of({ data: { products: [], totalCartPrice: 0 } });
     }
 
-    let headers = new HttpHeaders();
-    const token = this.authService.getToken();
-    if (token) {
-      headers = headers.set('token', token);
-    }
-
-    return this.http.delete(`${environments.baseUrl}cart/${id}`, { headers });
+    return this.http.delete(`${environments.baseUrl}cart/${id}`);
   }
 
   UpdateCart(productId: string, quantity: number): Observable<any> {
@@ -73,16 +47,7 @@ export class CardService {
       return of({ data: { products: [], totalCartPrice: 0 } });
     }
 
-    let headers = new HttpHeaders();
-    const token = this.authService.getToken();
-    if (token) {
-      headers = headers.set('token', token);
-    }
-
-    return this.http.put(`${environments.baseUrl}cart/${productId}`,
-      { count: quantity },
-      { headers }
-    );
+    return this.http.put(`${environments.baseUrl}cart/${productId}`, { count: quantity });
   }
 
   ClearCart(): Observable<any> {
@@ -91,12 +56,6 @@ export class CardService {
       return of({ data: { products: [], totalCartPrice: 0 } });
     }
 
-    let headers = new HttpHeaders();
-    const token = this.authService.getToken();
-    if (token) {
-      headers = headers.set('token', token);
-    }
-
-    return this.http.delete(`${environments.baseUrl}cart`, { headers });
+    return this.http.delete(`${environments.baseUrl}cart`);
   }
 }
