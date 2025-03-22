@@ -23,6 +23,7 @@ export class CartItemComponent {
   // Method to emit product ID and updated count
   updateProductCount(count: number): void {
     this.update.emit({ id: this.product.product._id, count });
+    
   }
 
 

@@ -1,3 +1,4 @@
+import { CardService } from './../../../features/product/services/card.service';
 import { Component, Input, OnInit, OnDestroy, inject, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -19,7 +20,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   userName: string = '';
   darkMode = false;
 
-  cartItemCount: number = 2;
+  cartItemCount: number = 0;
   showMobileMenu: boolean = false;
   showMobileSearch: boolean = false;
   userEmail: string = 'user@example.com';
@@ -31,6 +32,38 @@ $index: any;
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
+
+  private readonly cartService = inject(CardService)
+
+ ngOnInit(): void {
+    // Check authentication only in browser environment
+    if (this.isBrowser) {
+      try {
+        this.isAuthenticated = this.authService?.isAuthnticated() || false;
+        const user = this.authService?.getUserData();
+        this.userName = user?.name || '';
+
+        // Only subscribe if service exists
+        this.authService?.currentUser$?.subscribe(user => {
+          this.isAuthenticated = !!user;
+          this.userName = user?.name || '';
+        });
+
+        // Add event listener only in browser
+        window.addEventListener('scroll', this.handleScroll);
+      } catch (error) {
+        console.error('Auth service error:', error);
+      }
+    }
+
+    this.cartService.counter.subscribe({
+      next: (count) => {
+        this.cartItemCount = count
+      }
+    })
+
+  }
+
 
   closeMobileMenu() {
     this.showMobileMenu = false;
@@ -57,27 +90,7 @@ $index: any;
     }
   }
 
-  ngOnInit(): void {
-    // Check authentication only in browser environment
-    if (this.isBrowser) {
-      try {
-        this.isAuthenticated = this.authService?.isAuthnticated() || false;
-        const user = this.authService?.getUserData();
-        this.userName = user?.name || '';
 
-        // Only subscribe if service exists
-        this.authService?.currentUser$?.subscribe(user => {
-          this.isAuthenticated = !!user;
-          this.userName = user?.name || '';
-        });
-
-        // Add event listener only in browser
-        window.addEventListener('scroll', this.handleScroll);
-      } catch (error) {
-        console.error('Auth service error:', error);
-      }
-    }
-  }
 
   ngOnDestroy() {
     // Remove event listener only in browser

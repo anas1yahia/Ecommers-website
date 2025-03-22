@@ -38,6 +38,7 @@ export class ListProductComponent {
     this.cardService.addToCart(product.id).subscribe({
       next: (res: any) => {
        console.log(res);
+       this.cardService.counter.next(res.numOfCartItems);
      }
     }
     );

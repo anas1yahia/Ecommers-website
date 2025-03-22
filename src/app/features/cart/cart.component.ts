@@ -77,6 +77,7 @@ export class CartComponent implements OnInit {
     this.cardService.RemoveCartItem(id).subscribe({
       next: (res) => {
         this.cartDetails = res;
+        this.cardService.counter.next(res.numOfCartItems);
         this.isLoading = false;
       },
       error: (err) => {
@@ -91,7 +92,10 @@ export class CartComponent implements OnInit {
 
     this.cardService.UpdateCart(id, count).subscribe({
       next: (res) => {
+        this.cardService.counter.next(res.numOfCartItems);
         this.cartDetails = res;
+
+
 
       },
 
@@ -103,6 +107,8 @@ export class CartComponent implements OnInit {
       next: (res) => {
         this.cartDetails = res;
         if (res.message == 'success') {
+          this.cardService.counter.next(res.numOfCartItems);
+
           this.loadCart();
 
         }

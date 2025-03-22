@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { environments } from '../../../../environments/environments.prod';
 
@@ -8,6 +8,7 @@ import { environments } from '../../../../environments/environments.prod';
   providedIn: 'root'
 })
 export class CardService {
+  counter= new BehaviorSubject<number>(0);
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -58,4 +59,4 @@ export class CardService {
 
     return this.http.delete(`${environments.baseUrl}cart`);
   }
-}
+}1
