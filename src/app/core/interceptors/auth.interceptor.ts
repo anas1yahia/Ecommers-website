@@ -5,7 +5,7 @@ import { AuthService } from '../auth/services/auth.service';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   const auth = inject(AuthService);
-  const token = auth.getToken();
+  const token = auth.getToken()!;
 
   if (req.url.includes('cart') && token || req.url.includes('order') && token) {
 

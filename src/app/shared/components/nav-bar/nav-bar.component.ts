@@ -34,6 +34,7 @@ $index: any;
   }
 
   private readonly cartService = inject(CardService)
+  private readonly id = inject(PLATFORM_ID)
 
  ngOnInit(): void {
     // Check authentication only in browser environment
@@ -61,6 +62,13 @@ $index: any;
         this.cartItemCount = count
       }
     })
+    if (typeof localStorage !== 'undefined') {
+      this.cartService.getLoggedUserCart().subscribe({
+        next: (count) => {
+          this.cartService.counter.next(count.numOfCartItems)
+        }
+      });
+    }
 
   }
 

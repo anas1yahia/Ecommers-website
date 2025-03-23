@@ -12,13 +12,12 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   // Skip authentication check during SSR
   if (!isPlatformBrowser(platformId)) {
-    console.log('SSR detected, bypassing auth check');
     return true;
   }
 
   // Now check authentication in browser
   const isAuth = authService.isAuthnticated();
-  console.log('User authenticated?', isAuth);
+
 
   if (isAuth) {
     return true;

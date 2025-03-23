@@ -25,7 +25,6 @@ export class CardService {
   }
 
   addToCart(productId: string): Observable<any> {
-    // Skip API calls during SSR
     if (!isPlatformBrowser(this.platformId)) {
       return of({ data: { products: [], totalCartPrice: 0 } });
     }
