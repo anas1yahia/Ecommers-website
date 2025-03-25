@@ -1,5 +1,15 @@
 import { CardService } from './../../../features/product/services/card.service';
-import { Component, Input, OnInit, OnDestroy, inject, PLATFORM_ID, Inject, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnDestroy,
+  inject,
+  PLATFORM_ID,
+  Inject,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -12,17 +22,15 @@ import { SearchPipe } from '../../pipes/search.pipe';
   imports: [CommonModule, RouterModule, FormsModule],
   providers: [AuthService],
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit, OnDestroy {
-
   @Input() layout: string = 'user';
 
   isAuthenticated = false;
   userName: string = '';
   darkMode = false;
   searchTerm: string = '';
-
 
   cartItemCount: number = 0;
   showMobileMenu: boolean = false;
@@ -31,16 +39,16 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   private authService = inject(AuthService);
   private isBrowser: boolean;
-$index: any;
+  $index: any;
 
   constructor(@Inject(PLATFORM_ID) platformId: Object, private router: Router) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
-  private readonly cartService = inject(CardService)
-  private readonly id = inject(PLATFORM_ID)
+  private readonly cartService = inject(CardService);
+  private readonly id = inject(PLATFORM_ID);
 
- ngOnInit(): void {
+  ngOnInit(): void {
     // Check authentication only in browser environment
     if (this.isBrowser) {
       try {
@@ -49,7 +57,7 @@ $index: any;
         this.userName = user?.name || '';
 
         // Only subscribe if service exists
-        this.authService?.currentUser$?.subscribe(user => {
+        this.authService?.currentUser$?.subscribe((user) => {
           this.isAuthenticated = !!user;
           this.userName = user?.name || '';
         });
@@ -63,21 +71,22 @@ $index: any;
 
     this.cartService.counter.subscribe({
       next: (count) => {
-        this.cartItemCount = count
-      }
-    })
+        this.cartItemCount = count;
+      },
+    });
     if (typeof localStorage !== 'undefined') {
       this.cartService.getLoggedUserCart().subscribe({
         next: (count) => {
-          this.cartService.counter.next(count.numOfCartItems)
-        }
+          this.cartService.counter.next(count.numOfCartItems);
+        },
       });
     }
-
   }
 
   onSearchTermChanged() {
-    this.router.navigate(['/home'], { queryParams: { searchTerm: this.searchTerm } });
+    this.router.navigate(['/home'], {
+      queryParams: { searchTerm: this.searchTerm },
+    });
   }
 
   closeMobileMenu() {
@@ -103,9 +112,7 @@ $index: any;
         nav.classList.remove('nav-scrolled');
       }
     }
-  }
-
-
+  };
 
   ngOnDestroy() {
     // Remove event listener only in browser

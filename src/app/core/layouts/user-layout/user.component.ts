@@ -11,8 +11,5 @@ import { FormsModule } from '@angular/forms';
 })
 export class UserComponent {
   searchTerm: string = '';
-  onSearchChanged(term: string) {
-    this.searchTerm = term;
-  }
 
 }
