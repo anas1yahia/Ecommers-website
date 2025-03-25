@@ -1,9 +1,10 @@
 import { CardService } from './../../../features/product/services/card.service';
-import { Component, Input, OnInit, OnDestroy, inject, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, inject, PLATFORM_ID, Inject, EventEmitter, Output } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/auth/services/auth.service';
+import { SearchPipe } from '../../pipes/search.pipe';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,11 +15,14 @@ import { AuthService } from '../../../core/auth/services/auth.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit, OnDestroy {
+
   @Input() layout: string = 'user';
 
   isAuthenticated = false;
   userName: string = '';
   darkMode = false;
+  searchTerm: string = '';
+
 
   cartItemCount: number = 0;
   showMobileMenu: boolean = false;
@@ -29,7 +33,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   private isBrowser: boolean;
 $index: any;
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) platformId: Object, private router: Router) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
@@ -72,6 +76,9 @@ $index: any;
 
   }
 
+  onSearchTermChanged() {
+    this.router.navigate(['/home'], { queryParams: { searchTerm: this.searchTerm } });
+  }
 
   closeMobileMenu() {
     this.showMobileMenu = false;

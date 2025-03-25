@@ -94,8 +94,12 @@
             </div>
 
             <!-- Search Input -->
-            <input type="text" placeholder="What are you looking for today?"
-                   class="input input-bordered h-10 rounded-none focus:outline-none w-full">
+            <input type="text"
+              [(ngModel)]="searchTerm"
+              (keyup)="onSearchTermChanged()"
+              placeholder="What are you looking for today?"
+              class="input input-bordered h-10 rounded-none
+              focus:outline-none w-full">
 
             <!-- Search Button -->
             <button class="btn bg-primary hover:bg-primary-focus h-10 rounded-r-full border-none text-white px-5">

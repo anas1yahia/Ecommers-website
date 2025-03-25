@@ -12,4 +12,10 @@ import { NgxSpinnerComponent } from 'ngx-spinner';
 })
 export class AppComponent {
   title = 'app';
+  searchTerm: string = '';
+  onActivate(event: any) {
+    if (event.constructor.name === 'HomeComponent') {
+      event.searchTerm = this.searchTerm;
+    }
+  }
 }
