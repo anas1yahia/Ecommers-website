@@ -15,11 +15,29 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { SearchPipe } from '../../pipes/search.pipe';
+import { TranslationService } from '../../services/translation.service';
+import { TranslateModule } from '@ngx-translate/core';
+
+// Define interface for language objects
+export interface Language {
+  code: string;
+  name: string;
+  dir?: 'ltr' | 'rtl';
+  active?: boolean;
+}
+
+// Get languages from the service instead of importing directly
+const defaultLanguages: Language[] = [
+  { code: 'en', name: 'English', dir: 'ltr', active: true },
+  { code: 'ar', name: 'العربية', dir: 'rtl', active: true },
+  { code: 'fr', name: 'Français', dir: 'ltr', active: false },
+  { code: 'es', name: 'Español', dir: 'ltr', active: false },
+];
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, TranslateModule],
   providers: [AuthService],
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css'],
@@ -37,12 +55,28 @@ export class NavBarComponent implements OnInit, OnDestroy {
   showMobileSearch: boolean = false;
   userEmail: string = 'user@example.com';
 
+  // Define languages with proper typing
+  languages: Language[] = defaultLanguages;
+  currentLang: string = 'en';
+
+  // Add flag to track RTL direction
+  isRtl: boolean = false;
+
   private authService = inject(AuthService);
   private isBrowser: boolean;
   $index: any;
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object, private router: Router) {
+  constructor(
+    @Inject(PLATFORM_ID) platformId: Object,
+    private router: Router,
+    public translationService: TranslationService
+  ) {
     this.isBrowser = isPlatformBrowser(platformId);
+    // Get current language from translation service
+    if (this.isBrowser) {
+      this.currentLang = translationService.getCurrentLanguage();
+      this.updateDirectionBasedOnLanguage(this.currentLang);
+    }
   }
 
   private readonly cartService = inject(CardService);
@@ -79,6 +113,14 @@ export class NavBarComponent implements OnInit, OnDestroy {
         next: (count) => {
           this.cartService.counter.next(count.numOfCartItems);
         },
+      });
+    }
+
+    // Subscribe to language changes
+    if (this.isBrowser) {
+      this.translationService.translateService.onLangChange.subscribe((event) => {
+        this.currentLang = event.lang;
+        this.updateDirectionBasedOnLanguage(this.currentLang);
       });
     }
   }
@@ -145,5 +187,37 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
       localStorage.setItem('darkMode', this.darkMode ? 'true' : 'false');
     }
+  }
+
+  // Update the changeLanguage method
+  changeLanguage(langCode: string): void {
+    this.translationService.changeLang(langCode);
+    this.currentLang = langCode;
+    this.updateDirectionBasedOnLanguage(langCode);
+  }
+
+  // Add method to update document direction based on language
+  private updateDirectionBasedOnLanguage(langCode: string): void {
+    if (!this.isBrowser) return;
+
+    const lang = this.languages.find((l) => l.code === langCode);
+    this.isRtl = lang?.dir === 'rtl';
+
+    // Set dir attribute on document
+    document.documentElement.dir = this.isRtl ? 'rtl' : 'ltr';
+
+    // Optionally add a class for RTL-specific styling
+    document.documentElement.classList.toggle('rtl', this.isRtl);
+  }
+
+  // Get language name from code
+  getLanguageName(code: string): string {
+    const lang = this.languages.find((lang: Language) => lang.code === code);
+    return lang ? lang.name : 'English';
+  }
+
+  // Get current language name
+  getCurrentLanguageName(): string {
+    return this.getLanguageName(this.currentLang);
   }
 }

@@ -1,0 +1,88 @@
+{
+  "general": {
+    "yes": "نعم",
+    "no": "لا",
+    "ok": "موافق",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "save": "حفظ",
+    "delete": "حذف",
+    "back": "رجوع",
+    "next": "التالي"
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "register": "حساب جديد",
+    "logout": "تسجيل الخروج",
+    "welcome": "مرحبا بك في متجرنا",
+    "signInBenefits": "سجل الدخول للاستفادة من المزايا الحصرية"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "products": "المنتجات",
+    "categories": "التصنيفات",
+    "cart": "سلة التسوق",
+    "account": "حسابي",
+    "orders": "الطلبات",
+    "wishlist": "المفضلة",
+    "settings": "الإعدادات"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "products": "المنتجات",
+    "categories": "الفئات",
+    "brands": "الماركات",
+    "deals": "العروض",
+    "language": "اللغة",
+    "darkMode": "الوضع المظلم",
+    "currency": "العملة",
+    "search": "بحث",
+    "myAccount": "حسابي",
+    "wishlist": "المفضلة",
+    "cart": "السلة",
+    "myOrders": "طلباتي",
+    "helpCenter": "مركز المساعدة",
+    "manageAccount": "إدارة الحساب"
+  },
+  "banner": {
+    "freeShipping": "شحن مجاني للطلبات أكثر من 50 دولار",
+    "useCode": "استخدم الرمز",
+    "learnMore": "اعرف المزيد"
+  },
+  "products": {
+    "search": "بحث عن منتجات",
+    "filters": "تصفية",
+    "sort": "ترتيب حسب",
+    "price": "السعر",
+    "outOfStock": "غير متوفر",
+    "inStock": "متوفر",
+    "addToCart": "إضافة إلى السلة",
+    "addToWishlist": "إضافة إلى المفضلة",
+    "removeFromWishlist": "إزالة من المفضلة",
+    "description": "الوصف",
+    "specifications": "المواصفات",
+    "reviews": "التقييمات"
+  },
+  "cart": {
+    "shoppingCart": "سلة التسوق",
+    "subtotal": "المجموع الفرعي",
+    "viewCart": "عرض السلة",
+    "checkout": "إتمام الشراء",
+    "emptyCart": "سلة التسوق فارغة",
+    "shopNow": "تسوق الآن"
+  },
+  "checkout": {
+    "title": "إتمام الشراء",
+    "shippingAddress": "عنوان الشحن",
+    "billingAddress": "عنوان الفوترة",
+    "paymentMethod": "طريقة الدفع",
+    "orderSummary": "ملخص الطلب",
+    "placeOrder": "تأكيد الطلب"
+  },
+  "user": {
+    "hello": "مرحبا",
+    "account": "حسابي",
+    "orders": "طلباتي",
+    "settings": "الإعدادات"
+  }
+}

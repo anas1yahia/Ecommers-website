@@ -1,47 +1,28 @@
-import { ApplicationConfig, CUSTOM_ELEMENTS_SCHEMA, importProvidersFrom, inject, PLATFORM_ID, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { isPlatformBrowser } from '@angular/common';
-import { authInterceptor } from './core/interceptors/auth.interceptor';
-import { NgxSpinnerModule } from "ngx-spinner";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { loadingInterceptor } from './core/interceptors/loading.interceptor';
-import { catchErrorsInterceptor } from './core/interceptors/catch-errors.interceptor';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-
-
-// Custom SSR-safe interceptor function
-export function tokenSafeInterceptor(req: { clone: (arg0: { headers: any; }) => any; headers: { set: (arg0: string, arg1: string) => any; }; }, next: (arg0: any) => any) {
-  const platformId = inject(PLATFORM_ID);
-
-  // Skip token handling in SSR
-  if (!isPlatformBrowser(platformId)) {
-    return next(req);
-  }
-
-  const token = localStorage.getItem('token');
-  if (token) {
-    const clonedReq = req.clone({
-      headers: req.headers.set('token', token)
-    });
-    return next(clonedReq);
-  }
-
-  return next(req);
+// Factory function for translation loader
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/locales/', '.json');
 }
 
 export const appConfig: ApplicationConfig = {
   providers: [
-     provideZoneChangeDetection({ eventCoalescing: true }),
-     provideRouter(routes),
-     provideClientHydration(withEventReplay()),
-     provideHttpClient(withFetch(), withInterceptors([authInterceptor,loadingInterceptor, catchErrorsInterceptor])),
-     importProvidersFrom(
-       BrowserAnimationsModule,
-       NgxSpinnerModule.forRoot()
-     )
+    provideRouter(routes),
+    importProvidersFrom(
+      HttpClientModule,
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        },
+        defaultLanguage: 'en'
+      })
+    )
   ]
 };

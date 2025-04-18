@@ -1,9 +1,9 @@
 <!-- Announcement banner -->
 <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-2 text-sm">
   <div class="container mx-auto px-4">
-    Free shipping on orders over $50 | Use code: <span class="font-bold">SHIP50</span>
+    {{ 'banner.freeShipping' | translate }} | {{ 'banner.useCode' | translate }}: <span class="font-bold">SHIP50</span>
     <button class="ml-2 hover:underline focus:outline-none">
-      Learn more <i class="ri-arrow-right-s-line align-middle"></i>
+      {{ 'banner.learnMore' | translate }} <i class="ri-arrow-right-s-line align-middle"></i>
     </button>
   </div>
 </div>
@@ -50,23 +50,23 @@
         <div class="hidden lg:flex ml-8 space-x-1">
           <a routerLink="/home" routerLinkActive="active-nav-link"
              class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">
-            Home
+            {{ 'nav.home' | translate }}
           </a>
           <a routerLink="/products" routerLinkActive="active-nav-link"
              class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">
-            Products
+            {{ 'nav.products' | translate }}
           </a>
           <a routerLink="/category" routerLinkActive="active-nav-link"
              class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">
-            Categories
+            {{ 'nav.categories' | translate }}
           </a>
           <a routerLink="/brand" routerLinkActive="active-nav-link"
              class="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors">
-            Brands
+            {{ 'nav.brands' | translate }}
           </a>
           <a routerLink="/deals" routerLinkActive="active-nav-link"
              class="px-3 py-2 rounded-md text-sm font-medium text-rose-600 hover:bg-rose-50 transition-colors">
-            Deals
+            {{ 'nav.deals' | translate }}
           </a>
         </div>
       </div>
@@ -120,14 +120,16 @@
         <div class="hidden lg:flex dropdown dropdown-end">
           <button tabindex="0" class="btn btn-ghost btn-sm">
             <i class="ri-translate text-gray-700 mr-1"></i>
-            <span>EN</span>
+            <span>{{ currentLang | uppercase }}</span>
             <i class="ri-arrow-down-s-line ml-1"></i>
           </button>
           <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-40 mt-1">
-            <li><a>English</a></li>
-            <li><a>Français</a></li>
-            <li><a>Español</a></li>
-            <li><a>Deutsch</a></li>
+            <li *ngFor="let lang of languages">
+              <a (click)="changeLanguage(lang.code)" [class.active]="currentLang === lang.code" class="flex items-center justify-between">
+                <span>{{ lang.name }}</span>
+                <i *ngIf="currentLang === lang.code" class="ri-check-line text-primary"></i>
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -352,12 +354,9 @@
           </div>
         </div>
         <div class="flex justify-between items-center mb-4">
-          <span class="flex items-center"><i class="ri-translate mr-2"></i> Language</span>
-          <select class="select select-sm select-bordered" aria-label="Select language">
-            <option>English</option>
-            <option>Français</option>
-            <option>Español</option>
-            <option>Deutsch</option>
+          <span class="flex items-center"><i class="ri-translate mr-2"></i> {{ 'nav.language' | translate }}</span>
+          <select class="select select-sm select-bordered" [(ngModel)]="currentLang" (change)="changeLanguage(currentLang)" aria-label="Select language">
+            <option *ngFor="let lang of languages" [value]="lang.code">{{ lang.name }}</option>
           </select>
         </div>
 

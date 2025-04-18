@@ -1,0 +1,88 @@
+{
+  "general": {
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "register": "Register",
+    "logout": "Log out",
+    "welcome": "Welcome to Our Shop",
+    "signInBenefits": "Sign in to enjoy exclusive benefits"
+  },
+  "navigation": {
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "cart": "Cart",
+    "account": "My Account",
+    "orders": "Orders",
+    "wishlist": "Wishlist",
+    "settings": "Settings"
+  },
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "brands": "Brands",
+    "deals": "Deals",
+    "language": "Language",
+    "darkMode": "Dark Mode",
+    "currency": "Currency",
+    "search": "Search",
+    "myAccount": "My Account",
+    "wishlist": "Wishlist",
+    "cart": "Cart",
+    "myOrders": "My Orders",
+    "helpCenter": "Help Center",
+    "manageAccount": "Manage Account"
+  },
+  "banner": {
+    "freeShipping": "Free shipping on orders over $50",
+    "useCode": "Use code",
+    "learnMore": "Learn more"
+  },
+  "products": {
+    "search": "Search products",
+    "filters": "Filters",
+    "sort": "Sort by",
+    "price": "Price",
+    "outOfStock": "Out of stock",
+    "inStock": "In stock",
+    "addToCart": "Add to cart",
+    "addToWishlist": "Add to wishlist",
+    "removeFromWishlist": "Remove from wishlist",
+    "description": "Description",
+    "specifications": "Specifications",
+    "reviews": "Reviews"
+  },
+  "cart": {
+    "shoppingCart": "Shopping Cart",
+    "subtotal": "Subtotal",
+    "viewCart": "View Cart",
+    "checkout": "Checkout",
+    "emptyCart": "Your cart is empty",
+    "shopNow": "Shop Now"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "shippingAddress": "Shipping Address",
+    "billingAddress": "Billing Address",
+    "paymentMethod": "Payment Method",
+    "orderSummary": "Order Summary",
+    "placeOrder": "Place Order"
+  },
+  "user": {
+    "hello": "Hello",
+    "account": "My Account",
+    "orders": "My Orders",
+    "settings": "Settings"
+  }
+}
