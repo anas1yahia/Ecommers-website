@@ -1,88 +1,59 @@
 {
-  "general": {
-    "yes": "Yes",
-    "no": "No",
-    "ok": "OK",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "save": "Save",
-    "delete": "Delete",
-    "back": "Back",
-    "next": "Next"
+  "NAV": {
+    "HOME": "Home",
+    "PRODUCTS": "Products",
+    "CATEGORIES": "Categories",
+    "CART": "Cart",
+    "ACCOUNT": "Account",
+    "LOGIN": "Login",
+    "REGISTER": "Register",
+    "LOGOUT": "Logout",
+    "SEARCH": "Search products...",
+    "LANGUAGE": "Language"
   },
-  "auth": {
-    "signIn": "Sign In",
-    "register": "Register",
-    "logout": "Log out",
-    "welcome": "Welcome to Our Shop",
-    "signInBenefits": "Sign in to enjoy exclusive benefits"
+  "HOME": {
+    "WELCOME": "Welcome to our store",
+    "FEATURED": "Featured Products",
+    "NEW_ARRIVALS": "New Arrivals",
+    "VIEW_ALL": "View All"
   },
-  "navigation": {
-    "home": "Home",
-    "products": "Products",
-    "categories": "Categories",
-    "cart": "Cart",
-    "account": "My Account",
-    "orders": "Orders",
-    "wishlist": "Wishlist",
-    "settings": "Settings"
+  "PRODUCT": {
+    "ADD_TO_CART": "Add to Cart",
+    "BUY_NOW": "Buy Now",
+    "DESCRIPTION": "Description",
+    "REVIEWS": "Reviews",
+    "RELATED": "Related Products",
+    "OUT_OF_STOCK": "Out of Stock",
+    "IN_STOCK": "In Stock"
   },
-  "nav": {
-    "home": "Home",
-    "products": "Products",
-    "categories": "Categories",
-    "brands": "Brands",
-    "deals": "Deals",
-    "language": "Language",
-    "darkMode": "Dark Mode",
-    "currency": "Currency",
-    "search": "Search",
-    "myAccount": "My Account",
-    "wishlist": "Wishlist",
-    "cart": "Cart",
-    "myOrders": "My Orders",
-    "helpCenter": "Help Center",
-    "manageAccount": "Manage Account"
+  "CART": {
+    "TITLE": "Shopping Cart",
+    "EMPTY": "Your cart is empty",
+    "CONTINUE_SHOPPING": "Continue Shopping",
+    "CHECKOUT": "Checkout",
+    "REMOVE": "Remove",
+    "TOTAL": "Total",
+    "QUANTITY": "Quantity"
   },
-  "banner": {
-    "freeShipping": "Free shipping on orders over $50",
-    "useCode": "Use code",
-    "learnMore": "Learn more"
+  "AUTH": {
+    "LOGIN": "Login",
+    "REGISTER": "Register",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "FORGOT_PASSWORD": "Forgot Password?",
+    "NAME": "Full Name",
+    "SUBMIT": "Submit",
+    "ALREADY_ACCOUNT": "Already have an account?",
+    "NO_ACCOUNT": "Don't have an account?"
   },
-  "products": {
-    "search": "Search products",
-    "filters": "Filters",
-    "sort": "Sort by",
-    "price": "Price",
-    "outOfStock": "Out of stock",
-    "inStock": "In stock",
-    "addToCart": "Add to cart",
-    "addToWishlist": "Add to wishlist",
-    "removeFromWishlist": "Remove from wishlist",
-    "description": "Description",
-    "specifications": "Specifications",
-    "reviews": "Reviews"
-  },
-  "cart": {
-    "shoppingCart": "Shopping Cart",
-    "subtotal": "Subtotal",
-    "viewCart": "View Cart",
-    "checkout": "Checkout",
-    "emptyCart": "Your cart is empty",
-    "shopNow": "Shop Now"
-  },
-  "checkout": {
-    "title": "Checkout",
-    "shippingAddress": "Shipping Address",
-    "billingAddress": "Billing Address",
-    "paymentMethod": "Payment Method",
-    "orderSummary": "Order Summary",
-    "placeOrder": "Place Order"
-  },
-  "user": {
-    "hello": "Hello",
-    "account": "My Account",
-    "orders": "My Orders",
-    "settings": "Settings"
+  "COMMON": {
+    "LOADING": "Loading...",
+    "ERROR": "An error occurred",
+    "SUCCESS": "Success!",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "BACK": "Back",
+    "NEXT": "Next"
   }
 }

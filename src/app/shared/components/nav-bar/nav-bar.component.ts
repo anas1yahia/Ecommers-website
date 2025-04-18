@@ -82,6 +82,8 @@ export class NavBarComponent implements OnInit, OnDestroy {
   private readonly cartService = inject(CardService);
   private readonly id = inject(PLATFORM_ID);
 
+  private translationSubscription: any;
+
   ngOnInit(): void {
     // Check authentication only in browser environment
     if (this.isBrowser) {
@@ -116,12 +118,14 @@ export class NavBarComponent implements OnInit, OnDestroy {
       });
     }
 
-    // Subscribe to language changes
+    // Subscribe to language changes using the public onLangChange property
     if (this.isBrowser) {
-      this.translationService.translateService.onLangChange.subscribe((event) => {
-        this.currentLang = event.lang;
-        this.updateDirectionBasedOnLanguage(this.currentLang);
-      });
+      this.translationSubscription = this.translationService.onLangChange.subscribe(
+        (res) => {
+          this.currentLang = res.lang;
+          this.updateDirectionBasedOnLanguage(this.currentLang);
+        }
+      );
     }
   }
 
@@ -160,6 +164,11 @@ export class NavBarComponent implements OnInit, OnDestroy {
     // Remove event listener only in browser
     if (this.isBrowser) {
       window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    // Unsubscribe from translation changes
+    if (this.translationSubscription) {
+      this.translationSubscription.unsubscribe();
     }
   }
 
